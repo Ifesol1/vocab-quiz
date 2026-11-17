@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Lesson 6 Vocab Quiz · Practice</title>
+<script src='../lib/hanzi-writer.min.js'></script>
+<script src='../lib/hz-data.js'></script>
+<script src='hz-data.js'></script>
+<style>
+:root{--paper:#f6f3ec;--ink:#1d1b18;--sub:#77716a;--line:#e2dccf;--red:#c8372d;--good:#2f7d4f;--warn:#b7791f;--card:#fffdf8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans CJK SC',sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 64px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+h1{font-size:24px;margin:0}
+h2{font-size:18px;margin:0 0 6px}
+.sub{color:var(--sub);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.mode{display:block;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:16px;font:inherit;color:inherit}
+.mode:hover{border-color:var(--red)}
+.mode b{display:block;font-size:16px;margin-bottom:4px}
+.mode.new{background:#fffaf0;border-color:#e6d6b5}
+.btn{font:inherit;font-size:15px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pri{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.mini{padding:3px 9px;font-size:13px;margin-left:6px}
+.btn.hz{font-size:24px;padding:6px 14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.between{justify-content:space-between}
+.center{justify-content:center}
+input[type=text],textarea,select{font:inherit;font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;width:100%;background:#fff;color:var(--ink)}
+select{font-size:16px}
+textarea{min-height:64px;resize:vertical;font-family:'Noto Sans CJK SC',system-ui,sans-serif}
+input[type=text]:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:-1px}
+label.f{display:block;font-size:13px;color:var(--sub);margin:14px 0 5px}
+.big{font-size:88px;line-height:1.15;text-align:center;margin:12px 0;font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif}
+.py{font-size:30px;text-align:center;margin:10px 0 2px}
+.py.s{font-size:21px}
+.tians{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.tian{width:150px;height:150px;border:2px solid #e3a49d;border-radius:4px;background:#fff url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cg stroke=%27%23efc9c4%27 stroke-width=%270.7%27 stroke-dasharray=%273 3%27%3E%3Cline x1=%270%27 y1=%270%27 x2=%27100%27 y2=%27100%27/%3E%3Cline x1=%27100%27 y1=%270%27 x2=%270%27 y2=%27100%27/%3E%3Cline x1=%2750%27 y1=%270%27 x2=%2750%27 y2=%27100%27/%3E%3Cline x1=%270%27 y1=%2750%27 x2=%27100%27 y2=%2750%27/%3E%3C/g%3E%3C/svg%3E') center/100% 100% no-repeat;touch-action:none}
+.tian.small{width:96px;height:96px}
+.tian.active{border-color:var(--red);box-shadow:0 0 0 4px rgba(200,55,45,.15)}
+.tian.done{border-color:var(--good)}
+.tian.miss{border-color:var(--warn)}
+.punct{font-size:40px;align-self:flex-end;padding:0 2px}
+.fb{margin-top:14px;padding:12px 14px;border-radius:10px;background:#f1ede4;line-height:1.8}
+.ok{color:var(--good)}
+.bad{color:var(--red)}
+.meh{color:var(--warn)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;border:1px solid var(--line);color:var(--sub);background:#fff}
+.bar{height:8px;background:#ebe5d8;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:99px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--sub);font-weight:600}
+.hz{font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif;font-size:22px}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}
+.timer.low{color:var(--red)}
+.dots{display:flex;gap:5px}
+.dots span{width:10px;height:10px;border-radius:50%;background:#e2dccf}
+.dots span.on{background:var(--good)}
+.score{font-size:56px;font-weight:700;text-align:center;line-height:1.1;margin-top:6px}
+#notice{position:fixed;left:50%;top:12px;transform:translateX(-50%);background:var(--red);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;display:none;z-index:9;max-width:90vw}
+.lesson-nav{padding-bottom:0;padding-top:16px}a{color:var(--ink)}
+.card{min-width:0;overflow-wrap:anywhere}.table-scroll{overflow-x:auto}table{min-width:520px}.py{overflow-wrap:anywhere}
+table.fit{min-width:0}
+/* Lesson 6 additions: slots, tiles, steps */
+.sec{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);font-weight:700;margin:24px 2px 10px}
+.s-S{--c:#2b5fa8;--b:#eef4fc}.s-T{--c:#b45309;--b:#fdf1e3}.s-H{--c:#6b4fa0;--b:#f2edfa}.s-P{--c:#2f7d4f;--b:#e8f5ed}.s-V{--c:#c8372d;--b:#fcebe9}.s-O{--c:#0f6e7a;--b:#e4f3f5}.s-D{--c:#8a6d00;--b:#fbf5da}.s-E,.s-C{--c:#6b665e;--b:#f0ede7}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end;margin:10px 0}
+.chip{display:inline-flex;flex-direction:column;align-items:center;border:1.5px solid var(--c,#ccc);background:var(--b,#fff);border-radius:10px;padding:3px 9px 2px;min-width:40px}
+.chip .c{font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif;font-size:22px;line-height:1.3;color:var(--ink)}
+.chip .l{font-size:10px;letter-spacing:.03em;text-transform:uppercase;font-weight:700;color:var(--c,#777);white-space:nowrap}
+.chip.en .c{font-family:inherit;font-size:15px;line-height:1.5}
+.chip.sm{padding:1px 6px;vertical-align:middle}.chip.sm .c{font-size:17px}
+.chip.x{border:0;background:none;padding:0 1px;min-width:0}.chip.x .l{visibility:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.legend .chip .c{display:none}.legend .chip{padding:3px 8px}
+.ex{background:#fbf8f1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
+.expy{color:var(--sub);font-size:15px}
+.idea{font-size:16px;line-height:1.6}
+.qc{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+.opt{display:block;width:100%;text-align:left;margin-top:8px;font-size:19px;font-family:'Noto Sans CJK SC',system-ui,sans-serif}
+.opt.right{border-color:var(--good);background:#eaf5ee}.opt.wrong{border-color:var(--red);background:#fbeceb}
+.prompt{font-size:19px;font-weight:600;margin:12px 0 10px}
+.ans{min-height:62px;border:2px dashed #d8d0bf;border-radius:12px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fff}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+.tile{font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif;font-size:21px;min-height:46px;min-width:46px;padding:5px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;color:var(--ink);touch-action:manipulation}
+.tile[class*='s-']{border-color:var(--c);background:var(--b)}
+.tile:active{transform:scale(.97)}
+.slots{display:flex;gap:8px;justify-content:center;margin:14px 0}
+.slotbox{width:60px;height:60px;border:2px dashed #d8d0bf;border-radius:10px;background:#fff;font-size:32px;font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif;cursor:pointer;color:var(--ink);padding:0}
+.slotbox.f{border-style:solid;border-color:var(--ink)}
+.parts{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.part{border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center;background:#fff;min-width:78px;max-width:150px}
+.part .c{font-family:'Noto Serif CJK SC','Noto Sans CJK SC',serif;font-size:34px;line-height:1.2}
+.part .m{font-size:13px;color:var(--sub);line-height:1.3}
+.op{font-size:22px;color:var(--sub)}
+.fam{margin-top:6px}
+.fam td:first-child{white-space:nowrap}
+.choice{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
+.choice .btn{padding:6px 10px;font-size:16px}
+.choice .btn.on{background:var(--b,#eee);border-color:var(--c,var(--ink));border-width:2px;font-weight:600}
+.sblabel{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--sub)}
+.note{font-size:14px;color:var(--warn);margin-top:8px}
+@media(max-width:480px){.wrap{padding-left:12px;padding-right:12px}.card{padding:14px}header{flex-wrap:wrap}.big{font-size:64px}.py{font-size:26px}.py.s{font-size:19px}.tian{width:130px;height:130px}.tian.small{width:86px;height:86px}.punct{font-size:28px}.tians{gap:6px}.tile{font-size:19px;padding:5px 9px}.chip .c{font-size:19px}.part{min-width:64px}.part .c{font-size:30px}.slotbox{width:52px;height:52px;font-size:28px}}
+</style>
+</head>
+<body>
+<div id='notice'></div>
+<nav class='wrap lesson-nav' aria-label='Lessons'><a href='../'>Lesson 4</a> · <a href='../lesson-5/'>Lesson 5</a> · <a href='./' aria-current='page'>Lesson 6</a></nav>
+<div class='wrap' id='app'></div>
+<script>
+/* ================= DATA (from the 11/9–11/16 slides and the L6 vocab sheet) ================= */
+const WRITE=[
+{h:'打电话',p:'dǎ diànhuà',d:'to make a phone call',e:['make a phone call','phone call','make a call','call','phone','telephone']},
+{h:'给',p:'gěi',d:'to give; to, for',e:['give','to','for']},
+{h:'喂',p:'wéi',alt:['wèi'],d:'hello (on the phone)',e:['hello','hi']},
+{h:'您',p:'nín',d:'you (polite)',e:['you']},
+{h:'就',p:'jiù',d:'precisely; exactly (emphasis)',e:['precisely','exactly','just','right','emphasis']},
+{h:'哪',p:'nǎ',alt:['něi'],d:'which',e:['which']},
+{h:'位',p:'wèi',d:'polite measure word for people',e:['measure word','polite measure word','people','person','mw']},
+{h:'时间',p:'shíjiān',d:'time',e:['time']},
+{h:'上',p:'shàng',d:'last; previous; to go to (class)',e:['last','previous','up','above','on','go to','attend']},
+{h:'下',p:'xià',d:'next; to get out of (class)',e:['next','down','below','under','get out','finish']},
+{h:'上课',p:'shàng kè',d:'to go to class; class begins',e:['go to class','attend class','have class','class begins','start class','begin class']},
+{h:'下课',p:'xià kè',d:'to get out of class; class is over',e:['get out of class','class is over','class over','end of class','finish class','dismiss','dismissed','after class','out of class']},
+{h:'上个星期',p:'shàng ge xīngqī',alt:['shàng gè xīngqī'],d:'last week',e:['last week','previous week']},
+{h:'下个星期',p:'xià ge xīngqī',alt:['xià gè xīngqī'],d:'next week',e:['next week']},
+{h:'上上个星期',p:'shàngshàng ge xīngqī',alt:['shàngshàng gè xīngqī'],d:'the week before last',e:['week before last','two weeks ago']},
+{h:'下下个星期',p:'xiàxià ge xīngqī',alt:['xiàxià gè xīngqī'],d:'the week after next',e:['week after next','in two weeks','two weeks from now']},
+{h:'以后',p:'yǐhòu',d:'after; afterwards; later',e:['after','afterwards','afterward','later']},
+{h:'空儿',p:'kòngr',alt:['kòng','kòng er'],d:'free time',e:['free time','spare time','free']},
+{h:'有空',p:'yǒu kòng',alt:['yǒu kòngr','yǒu kòng er'],d:'to have free time; to be free',e:['have free time','free','be free','available','have time']},
+{h:'方便',p:'fāngbiàn',d:'convenient',e:['convenient']},
+{h:'节',p:'jié',d:'measure word for class periods',e:['measure word','class period','period','mw']},
+{h:'门',p:'mén',d:'measure word for courses',e:['measure word','course','courses','mw','door']},
+{h:'课',p:'kè',d:'class; course; lesson',e:['class','course','lesson']},
+{h:'年级',p:'niánjí',d:'grade; year in school',e:['grade','year in school','school year','year']},
+{h:'考试',p:'kǎo shì',d:'test; to give or take a test',e:['test','exam','examination','take a test','give a test']},
+{h:'小考',p:'xiǎokǎo',d:'quiz',e:['quiz','small test']},
+{h:'开会',p:'kāi huì',d:'to have a meeting',e:['have a meeting','meeting','attend a meeting','hold a meeting']},
+{h:'问',p:'wèn',d:'to ask (a question)',e:['ask']},
+{h:'问题',p:'wèntí',d:'question; problem',e:['question','problem']},
+{h:'没问题',p:'méi wèntí',d:'no problem',e:['no problem']},
+{h:'办公室',p:'bàngōngshì',d:'office',e:['office']},
+{h:'要是',p:'yàoshi',alt:['yàoshì'],d:'if',e:['if','in case']},
+{h:'等',p:'děng',d:'to wait; to wait for',e:['wait','wait for']},
+{h:'到',p:'dào',d:'to arrive; to go to (到…去)',e:['arrive','go to','reach','get to','to']},
+{h:'行',p:'xíng',d:'all right; OK',e:['ok','okay','all right','alright','fine']},
+{h:'别',p:'bié',d:'don’t',e:['don’t','do not','dont']},
+{h:'别客气',p:'bié kèqi',alt:['bié kèqì'],d:'you’re welcome; don’t be so polite',e:['you’re welcome','you are welcome','welcome','don’t be polite','don’t be so polite','don’t mention it','no problem']},
+{h:'去年',p:'qùnián',d:'last year',e:['last year']},
+{h:'今年',p:'jīnnián',d:'this year',e:['this year']},
+{h:'明年',p:'míngnián',d:'next year',e:['next year']},
+{h:'上午',p:'shàngwǔ',d:'morning (before noon)',e:['morning','am','a m','before noon','forenoon']},
+{h:'中午',p:'zhōngwǔ',d:'noon; midday',e:['noon','midday','lunchtime']},
+{h:'下午',p:'xiàwǔ',d:'afternoon',e:['afternoon','pm','p m']}
+];
+const SENT=[
+{h:'喂，请问，常老师在吗？',p:'Wéi, qǐngwèn, Cháng lǎoshī zài ma?',e:'Hello, may I ask, is Teacher Chang there?'},
+{h:'我就是。您是哪位？',p:'Wǒ jiù shì. Nín shì nǎ wèi?',e:'This is she (speaking). Who is this, please?'},
+{h:'今天下午您有时间吗？我想问您几个问题。',p:'Jīntiān xiàwǔ nín yǒu shíjiān ma? Wǒ xiǎng wèn nín jǐ ge wèntí.',e:'Are you free this afternoon? I’d like to ask you a few questions.'},
+{h:'明天下午四点以后才有空儿。',p:'Míngtiān xiàwǔ sì diǎn yǐhòu cái yǒu kòngr.',e:'(I’m) not free until after four tomorrow afternoon.'},
+{h:'要是您方便，四点半我到您的办公室去，行吗？',p:'Yàoshi nín fāngbiàn, sì diǎn bàn wǒ dào nín de bàngōngshì qù, xíng ma?',e:'If it’s convenient for you, I’ll go to your office at four thirty. Is that OK?'},
+{h:'四点半，没问题。我在办公室等你。',p:'Sì diǎn bàn, méi wèntí. Wǒ zài bàngōngshì děng nǐ.',e:'Four thirty, no problem. I’ll wait for you in my office.'},
+{h:'上个星期老师给我们考试了。',p:'Shàng ge xīngqī lǎoshī gěi wǒmen kǎo shì le.',e:'Last week the teacher gave us a test.'},
+{h:'这个星期你有没有中文小考？',p:'Zhège xīngqī nǐ yǒu méiyǒu Zhōngwén xiǎokǎo?',e:'Do you have a Chinese quiz this week?'}
+];
+/* Slots: S subject, T time, H helper, P place/给/在/到 phrase, V verb, O object, D how long, E end word, C linker, X punctuation */
+const SL={S:'Subject',T:'Time',H:'Helper',P:'Place·给·到',V:'Verb',O:'Object',D:'How long',E:'End word',C:'Linker',X:''};
+const SLN={S:'subject',T:'time',H:'helper word',P:'place / 给 / 到 phrase',V:'verb',O:'object',D:'how-long phrase',E:'end word',C:'linker',X:''};
+const SLIN={O:'Inside the object: number + measure word + noun (两节课, 哪位老师, 一杯茶).',T:'Inside a time phrase, go from big to small (明天 · 下午 · 四点), and 以后 comes last (四点以后).',P:'Inside the phrase, 在 / 给 / 到 comes first, then the place or person (在办公室, 给妈妈, 到图书馆去).'};
+const SLTIP={
+S:'The subject comes first, or right after a time word that starts the sentence.',
+T:'Time (when) goes before the verb: at the very start or right after the subject. Never at the end like English.',
+H:'Helper words (要, 想, 不, 没, 才, 别, 常常, 就, 只, 请…) go right before the verb part, and before any 在 / 给 / 到 phrase.',
+P:'A 在 / 给 / 到 phrase goes before the verb, not after it like English “in the office” or “to Mom”.',
+V:'The verb comes after the subject, time, helper and place phrase, and before its object.',
+O:'The object comes after the verb. Inside it: number + measure word + noun (两节课, 哪位老师).',
+D:'How long (五天, 三个月) goes after the verb, unlike “when”, which goes before it.',
+E:'吗, 吧 and 行吗 go at the very end; 了 goes right after the verb (or at the end of a short sentence).',
+C:'Linkers like 要是, 对不起 or a name you’re calling (老师，) start their part of the sentence.'};
+const UNITS=['1 · The sentence skeleton','2 · 要 · 想 · 想要','3 · 给','4 · 哪 + measure word','5 · Time words','6 · 以后 (+ 才)','7 · 要是 (if)','8 · 在 + place + 等','9 · 到 … 去','10 · …，行吗？','11 · 别','12 · L5 review: 了 · 没 · 才'];
+const STEPS=[
+{u:0,t:'Who does what',idea:'A basic Chinese sentence works like English: <b>Subject → Verb → Object</b>. Each coloured box is a <i>slot</i>. We’ll add one slot at a time.',ex:[{c:'我/S 等/V 你/O',p:'Wǒ děng nǐ.',e:'I wait for you.',en:'I/S|wait for/V|you/O'}],q:{k:'mc',q:'Which one means “I wait for you”?',o:['我等你。','你等我。','等你我。'],a:0,why:'Subject 我 first, then the verb 等, then the object 你. 你等我 means “You wait for me.”'}},
+{u:0,t:'Time goes before the verb',idea:'English usually puts time at the end (“…tomorrow morning”). Chinese puts the <b>time before the verb</b>: at the very start, or right after the subject. Both are fine.',ex:[{c:'明天上午/T 我/S 有/V 两节课/O',p:'Míngtiān shàngwǔ wǒ yǒu liǎng jié kè.',e:'I have two classes tomorrow morning.',en:'I/S|have/V|two classes/O|tomorrow morning/T'},{c:'我/S 明天上午/T 有/V 两节课/O',p:'Wǒ míngtiān shàngwǔ yǒu liǎng jié kè.',e:'Same meaning, with the time right after the subject.'}],q:{k:'mc',q:'“I have class this afternoon.”',o:['我今天下午有课。','我有课今天下午。','有课我今天下午。'],a:0,why:'今天下午 (time) must come before the verb 有.'}},
+{u:0,t:'Place goes before the verb too',idea:'“In the office”, “at the library”: the <b>在 + place</b> phrase also goes <b>before the verb</b>. English puts it after.',ex:[{c:'我/S 在办公室/P 等/V 你/O',p:'Wǒ zài bàngōngshì děng nǐ.',e:'I’ll wait for you in the office.',en:'I/S|will wait for/V|you/O|in the office/P'}],q:{k:'mc',q:'“I’ll wait for you in the library.”',o:['我在图书馆等你。','我等你在图书馆。','在图书馆我你等。'],a:0,why:'在图书馆 sits before 等. 我等你在图书馆 is English order, and it’s wrong in Chinese.'}},
+{u:0,t:'The full skeleton',idea:'Put it together: <b>Subject · Time · Place · Verb · Object</b>. After the verb, English runs almost backwards: object, then place, then time.',ex:[{c:'明天上午/T 我/S 在教室/P 等/V 你/O',p:'Míngtiān shàngwǔ wǒ zài jiàoshì děng nǐ.',e:'Tomorrow morning I’ll wait for you in the classroom.',en:'I/S|will wait for/V|you/O|in the classroom/P|tomorrow morning/T'}],q:{k:'order',id:'o50'}},
+{u:0,t:'Helper words sit right before the verb part',idea:'Little words like <b>要</b> (going to), <b>想</b> (want to), <b>不</b> (not), <b>常常</b> (often), <b>才</b> and <b>别</b> go <b>after the subject and time</b>, and <b>before</b> a 在 / 给 phrase and the verb.',ex:[{c:'老师/S 明天/T 要/H 给妈妈/P 打/V 电话/O',p:'Lǎoshī míngtiān yào gěi māma dǎ diànhuà.',e:'The teacher is going to call Mom tomorrow.'}],q:{k:'mc',q:'“Who do you often call?”',o:['你常常给谁打电话？','你给谁打电话常常？','你给谁常常打电话？'],a:0,why:'常常 (a helper) goes before the 给 phrase: 你 · 常常 · 给谁 · 打电话.'}},
+{u:0,t:'Questions keep the same order',idea:'Chinese questions don’t move words around. Add <b>吗</b> at the end, or put the question word (<b>哪儿</b>, <b>谁</b>, <b>什么时候</b>) exactly where the answer would go.',ex:[{c:'老师的办公室/S 在/V 哪儿/O',p:'Lǎoshī de bàngōngshì zài nǎr?',e:'Where is the teacher’s office?'},{c:'老师的办公室/S 在/V Van_Hise_1211/O',p:'Lǎoshī de bàngōngshì zài Van Hise 1211.',e:'The answer goes in the same spot.'}],q:{k:'mc',q:'“When are you free?” (polite)',o:['您什么时候有空儿？','什么时候有空儿您？','您有空儿什么时候？'],a:0,why:'什么时候 is a time word, so it goes before the verb, where the answer (明天下午四点以后) would go.'}},
+{u:1,t:'要 + thing = want it',idea:'<b>要 + noun</b> means “want (something)”. Say you don’t want it with <b>不要</b>.',ex:[{c:'我/S 要/V 一杯冰水/O',p:'Wǒ yào yì bēi bīngshuǐ.',e:'I want a glass of ice water.'},{c:'我/S 不/H 要/V 啤酒/O',p:'Wǒ bú yào píjiǔ.',e:'I don’t want beer.'}],q:{k:'mc',q:'“I want a cup of tea.”',o:['我要一杯茶。','我一杯茶要。','我要茶一杯。'],a:0,why:'要 (verb) + 一杯茶 (number + measure word + noun).'}},
+{u:1,t:'要 + verb = going to',idea:'<b>要 + verb</b> talks about a plan or a scheduled event: “be going to”. To say you’re <i>not</i> going to, use <b>不 + verb</b>.',ex:[{c:'明天下午/T 我/S 要/H 做/V 功课/O',p:'Míngtiān xiàwǔ wǒ yào zuò gōngkè.',e:'Tomorrow afternoon I’m going to do homework.'},{c:'明天/T 我/S 不/H 看/V 电影/O',p:'Míngtiān wǒ bú kàn diànyǐng.',e:'Tomorrow I’m not going to see a movie.'}],q:{k:'mc',q:'“Tomorrow I’m not going to watch a movie.”',o:['明天我不看电影。','明天我看电影不。','明天不我看电影。'],a:0,why:'Not going to = 不 + verb, and 不 sits right before the verb.'}},
+{u:1,t:'想 + verb = want to do',idea:'<b>想</b> needs a verb after it: “want to (do something)”. It’s a helper word, so it goes right before the verb.',ex:[{c:'这个周末/T 我/S 想/H 去/V 跳舞/V',p:'Zhège zhōumò wǒ xiǎng qù tiàowǔ.',e:'I want to go dancing this weekend.'}],q:{k:'mc',q:'“I want to go dancing this weekend.”',o:['这个周末我想去跳舞。','我想去跳舞这个周末。','这个周末我去想跳舞。'],a:0,why:'Time (这个周末) goes before the verb, and 想 comes right before 去跳舞.'}},
+{u:1,t:'想要 = would like (softer)',idea:'<b>想要</b> + noun is a softer “would like”. Recap: <b>要</b> + noun = want · <b>要</b> + verb = going to · <b>想</b> + verb = want to · <b>想要</b> = would like.',ex:[{c:'我/S 想/H 要/V 一只狗/O',p:'Wǒ xiǎng yào yì zhī gǒu.',e:'I’d like a dog.'}],q:{k:'mc',q:'Pick the word: “我___一杯可乐。” (I want a cola.)',o:['要','想','才'],a:0,why:'可乐 is a thing (a noun), so use 要 (or 想要). 想 on its own needs a verb: 我想喝可乐.'}},
+{u:2,t:'给 = give',idea:'As a verb, <b>给</b> means “give”: <b>给 + person + thing</b>.',ex:[{c:'请/H 给/V 我/O 一杯茶/O',p:'Qǐng gěi wǒ yì bēi chá.',e:'Please give me a cup of tea.'}],q:{k:'mc',q:'“Mom gave me a cup of water.”',o:['妈妈给了我一杯水。','妈妈给一杯水了我。','妈妈了给我一杯水。'],a:0,why:'给 + 了 + person + thing. 了 goes right after the verb 给.'}},
+{u:2,t:'给 + person goes before the verb',idea:'“Call Mom” is <b>给妈妈打电话</b>, literally “to Mom make a call”. The <b>给 + person</b> phrase takes the same slot as a place: <b>before the verb</b>.',ex:[{c:'妈妈/S 给孩子/P 打/V 电话/O',p:'Māma gěi háizi dǎ diànhuà.',e:'Mom calls the child.',en:'Mom/S|calls/V|the child/P'}],q:{k:'order',id:'o21'}},
+{u:3,t:'哪 = which (+ measure word)',idea:'<b>哪</b> works like 这 and 那: it needs a <b>measure word</b> before the noun. Use the polite <b>位</b> for people.',ex:[{c:'你/S 认识/V 哪位老师/O',p:'Nǐ rènshi nǎ wèi lǎoshī?',e:'Which teacher do you know?'},{c:'您/S 是/V 哪位/O',p:'Nín shì nǎ wèi?',e:'Who is this, please? (on the phone)'}],q:{k:'mc',q:'“Which coffee shop do you want to go to?”',o:['你想去哪个咖啡馆？','你想去哪咖啡馆？','你想去咖啡馆哪个？'],a:0,why:'哪 + measure word (个) + noun, sitting where the answer would go.'}},
+{u:3,t:'哪 or 哪儿?',idea:'<b>哪</b> = which (with a measure word). <b>哪儿</b> = where. One set phrase skips the measure word: <b>哪国人</b> (which country).',ex:[{c:'你/S 是/V 哪国人/O',p:'Nǐ shì nǎ guó rén?',e:'Which country are you from?'},{c:'老师的办公室/S 在/V 哪儿/O',p:'Lǎoshī de bàngōngshì zài nǎr?',e:'Where is the teacher’s office?'}],q:{k:'mc',q:'“你想去___？” (Where do you want to go?)',o:['哪儿','哪','哪位'],a:0,why:'Where = 哪儿. 哪 on its own means “which” and needs a measure word + noun.'}},
+{u:4,t:'上 = last, 下 = next',idea:'<b>上个星期</b> last week · <b>这个星期</b> this week · <b>下个星期</b> next week. Double it for two away: <b>上上个星期</b> (the week before last), <b>下下个星期</b> (the week after next). Months work the same way: 上个月, 下个月.',ex:[{c:'你/S 上个星期/T 做了/V 什么/O',p:'Nǐ shàng ge xīngqī zuò le shénme?',e:'What did you do last week?'}],q:{k:'mc',q:'“the week after next”',o:['下下个星期','上上个星期','下个星期'],a:0,why:'下 = next, so 下下 = the one after next.'}},
+{u:4,t:'Years: 去年 · 今年 · 明年',idea:'Years don’t use 上/下 or 个. They work like 昨天 · 今天 · 明天: <b>去年</b> last year · <b>今年</b> this year · <b>明年</b> next year.',ex:[{c:'小高/S 明年六月/T 才/H 去/V 中国/O',p:'Xiǎo Gāo míngnián liùyuè cái qù Zhōngguó.',e:'Little Gao isn’t going to China until June next year.'}],q:{k:'mc',q:'“last year”',o:['去年','上个年','昨年'],a:0,why:'Last year is 去年, and 年 never takes 个.'}},
+{u:4,t:'Counting time: 个 or not?',idea:'<b>年 · 天 · 分钟</b> take <b>no</b> measure word: 一年, 两天, 二十五分钟. <b>月 · 星期 · 小时</b> need <b>个</b>: 两个月, 一个星期, 三个小时.',ex:[{c:'我/S 学了/V 三个月/D 中文/O',p:'Wǒ xué le sān ge yuè Zhōngwén.',e:'I have studied Chinese for three months.'}],q:{k:'mc',q:'“two days”',o:['两天','两个天','二天'],a:0,why:'天 takes no 个, and when counting things 2 is 两.'}},
+{u:4,t:'When goes before, how long goes after',idea:'<b>When</b> (明天, 四点, 一个星期 “per week”) goes <b>before</b> the verb. <b>How long</b> (五天, 三个月) goes <b>after</b> the verb, before the object.',ex:[{c:'我/S 一个星期/T 学/V 五天/D 中文/O',p:'Wǒ yí ge xīngqī xué wǔ tiān Zhōngwén.',e:'I study Chinese five days a week.'}],q:{k:'order',id:'o35'}},
+{u:4,t:'Big to small: day → part of day → clock',idea:'Time phrases go from big to small: <b>明天 · 下午 · 三点</b>. Parts of the day: 早上 (6–8) · 上午 (8–12) · 中午 (12–1) · 下午 (1–5) · 晚上 (5–12).',ex:[{c:'常老师/S 明天下午三点/T 要/H 给二年级/P 考试/V',p:'Cháng lǎoshī míngtiān xiàwǔ sān diǎn yào gěi èr niánjí kǎo shì.',e:'Teacher Chang is giving the second-years a test at 3 p.m. tomorrow.'}],q:{k:'mc',q:'“at 3 p.m. tomorrow”',o:['明天下午三点','三点下午明天','下午三点明天'],a:0,why:'Biggest unit first: day (明天), part of day (下午), clock time (三点).'}},
+{u:5,t:'X 以后 = after X',idea:'English says “<i>after</i> class”. Chinese flips it: <b>下课以后</b> (class over + after). It’s a time phrase, so it goes <b>before the verb</b>.',ex:[{c:'下课以后/T ，/X 我/S 要/H 去/V 图书馆/O 看书/V',p:'Xià kè yǐhòu, wǒ yào qù túshūguǎn kàn shū.',e:'After class, I’m going to the library to read.'}],q:{k:'mc',q:'“after four o’clock”',o:['四点以后','以后四点','四点后以'],a:0,why:'The time first, then 以后.'}},
+{u:5,t:'Action + 以后',idea:'For “after doing something”, use <b>verb + 了 + object + 以后</b>, then say what happens next.',ex:[{c:'看了电影以后/T ，/X 我们/S 去/V 吃饭/V 吧/E',p:'Kàn le diànyǐng yǐhòu, wǒmen qù chī fàn ba.',e:'After the movie, let’s go eat.'}],q:{k:'order',id:'o40'}},
+{u:5,t:'以后 + 才 = not until after',idea:'<b>才</b> means “later than you’d expect”. With 以后 it means “not until after…”. 才 is a helper word: right before the verb.',ex:[{c:'我/S 明天四点以后/T 才/H 有空/V',p:'Wǒ míngtiān sì diǎn yǐhòu cái yǒu kòng.',e:'I’m not free until after four tomorrow.'}],q:{k:'mc',q:'“I’m not free until after four tomorrow.”',o:['我明天四点以后才有空。','我明天才四点以后有空。','我明天四点以后有空才。'],a:0,why:'The time phrase first, then 才 right before the verb 有空.'}},
+{u:6,t:'要是…，…吧',idea:'<b>要是</b> + situation, then the result. Ending the result with <b>吧</b> turns it into a suggestion (“let’s…”).',ex:[{c:'要是/C 你/S 有空儿/V ，/X 我们/S 去/V 吃/V 中国菜/O 吧/E',p:'Yàoshi nǐ yǒu kòngr, wǒmen qù chī Zhōngguó cài ba.',e:'If you’re free, let’s go eat Chinese food.'}],q:{k:'order',id:'o44'}},
+{u:6,t:'Polite 要是 from the dialogue',idea:'Li You uses 要是 to be polite to her teacher: “if it’s convenient for you…”. Notice <b>您</b> (polite you) and <b>行吗</b> at the end.',ex:[{c:'要是/C 您/S 方便/V ，/X 四点半/T 我/S 到您的办公室/P 去/V ，/X 行吗/E',p:'Yàoshi nín fāngbiàn, sì diǎn bàn wǒ dào nín de bàngōngshì qù, xíng ma?',e:'If it’s convenient for you, I’ll go to your office at 4:30. Is that OK?'}],q:{k:'mc',q:'“If you’re not busy tomorrow, let’s go see a movie.”',o:['要是明天你不忙，我们去看电影吧。','明天你不忙要是，我们去看电影吧。','我们去看电影吧，明天你不忙要是。'],a:0,why:'要是 starts the “if” part. (It can also come right after the subject: 你要是明天不忙….)'}},
+{u:7,t:'Wait for someone somewhere',idea:'<b>Person 1 + 在 + place + 等 + person 2</b>. The place goes before 等. <b>等一下</b> = wait a moment.',ex:[{c:'我/S 在图书馆/P 等/V 你/O ，/X 行吗/E',p:'Wǒ zài túshūguǎn děng nǐ, xíng ma?',e:'I’ll wait for you in the library, OK?'}],q:{k:'order',id:'o49'}},
+{u:8,t:'到 = arrive',idea:'On its own, <b>到</b> means “arrive”: 我到了 = I’m here / I’ve arrived.',ex:[{c:'他/S 到/V 图书馆/O 了/E',p:'Tā dào túshūguǎn le.',e:'He arrived at the library.'}],q:{k:'mc',q:'“I’ve arrived.”',o:['我到了。','我了到。','了我到。'],a:0,why:'了 comes after the verb 到.'}},
+{u:8,t:'到 + place + 去 = go to a place',idea:'<b>到 + place + 去</b> wraps around the place: “go to …”. Add a verb after it to say what you’ll do there.',ex:[{c:'下课以后/T 我/S 到图书馆/P 去/V 看书/V',p:'Xià kè yǐhòu wǒ dào túshūguǎn qù kàn shū.',e:'After class I go to the library to read.'}],q:{k:'order',id:'o55'}},
+{u:9,t:'Suggestion + 行吗？',idea:'Make a suggestion, then add <b>行吗？</b> or <b>行不行？</b> (“OK?”). Yes: <b>行 / 好 / 没问题</b>. No: start with <b>对不起</b> and give a reason.',ex:[{c:'老师/C ，/X 我/S 明天上午八点半/T 到/V 您的办公室/O ，/X 行吗/E',p:'Lǎoshī, wǒ míngtiān shàngwǔ bā diǎn bàn dào nín de bàngōngshì, xíng ma?',e:'Teacher, I’ll come to your office at 8:30 tomorrow morning, OK?'},{c:'对不起/C ，/X 我/S 明天上午八点半/T 要/H 开会/V',p:'Duìbuqǐ, wǒ míngtiān shàngwǔ bā diǎn bàn yào kāi huì.',e:'Sorry, I have a meeting at 8:30 tomorrow morning.'}],q:{k:'mc',q:'“我在图书馆等你，行吗？” Which reply means no?',o:['对不起，我要开会。','行。','没问题。'],a:0,why:'行 and 没问题 mean yes. Say no politely with 对不起 + a reason.'}},
+{u:10,t:'别 + verb = don’t',idea:'<b>别</b> tells someone not to do something. It’s a helper word: right before the verb (or the 给 phrase). <b>请别</b> is more polite.',ex:[{c:'请/H 别/H 进来/V',p:'Qǐng bié jìnlai!',e:'Please don’t come in!'},{c:'他/S 很忙/V ，/X 别/H 给他/P 打/V 电话/O',p:'Tā hěn máng, bié gěi tā dǎ diànhuà!',e:'He’s very busy, don’t call him!'}],q:{k:'order',id:'o62'}},
+{u:10,t:'别客气 = you’re welcome',idea:'<b>别客气</b> literally means “don’t be so polite”. It’s the usual reply to 谢谢.',ex:[{c:'谢谢/V 您/O',p:'Xièxie nín.',e:'Thank you.'},{c:'别/H 客气/V',p:'Bié kèqi.',e:'You’re welcome.'}],q:{k:'mc',q:'Your friend says “谢谢你请我喝奶茶！” You reply:',o:['别客气！','别看我！','没有意思！'],a:0,why:'别客气 = you’re welcome.'}},
+{u:11,t:'Verb + 了 = it happened',idea:'<b>了</b> shows an action is done. With a plain object it can go after the verb or at the end (我看电影了 / 我看了电影). If the object has a number or describing word, put 了 <b>right after the verb</b>.',ex:[{c:'我/S 看了/V 两个外国电影/O',p:'Wǒ kàn le liǎng ge wàiguó diànyǐng.',e:'I watched two foreign movies.'}],q:{k:'mc',q:'“Yesterday I drank three bottles of beer.”',o:['昨天我喝了三瓶啤酒。','昨天了我喝三瓶啤酒。','昨天我了喝三瓶啤酒。'],a:0,why:'了 goes right after the verb 喝, because the object has a number (三瓶).'}},
+{u:11,t:'没 + verb, with no 了',idea:'“Didn’t” is <b>没(有) + verb</b>, and 了 drops out. Compare <b>不</b> (don’t, as a habit): 我不喝咖啡 = I don’t drink coffee. 我今天没喝咖啡 = I didn’t drink coffee today.',ex:[{c:'昨天晚上/T 我/S 没/H 睡觉/V',p:'Zuótiān wǎnshang wǒ méi shuì jiào.',e:'Last night I didn’t sleep.'}],q:{k:'mc',q:'“I didn’t drink coffee today.”',o:['我今天没喝咖啡。','我今天没喝咖啡了。','我今天喝咖啡没。'],a:0,why:'没 + verb, and no 了.'}},
+{u:11,t:'才 = not until (no 了!)',idea:'<b>才</b> means something happened later than expected. It goes right before the verb and <b>never takes 了</b>.',ex:[{c:'王朋和李友/S 晚上十二点/T 才/H 回家/V',p:'Wáng Péng hé Lǐ Yǒu wǎnshang shí’èr diǎn cái huí jiā.',e:'Wang Peng and Li You didn’t go home until midnight.'}],q:{k:'mc',q:'“He didn’t come until nine.”',o:['他九点才来。','他九点才来了。','他九点来才。'],a:0,why:'Time, then 才, then the verb, and no 了.'}}
+];
+const PATS={skel:'Skeleton: time & place before the verb',yao:'要 · 想 · 想要',gei:'给',na:'哪 + measure word',time:'Time words & how long',yihou:'以后 (+ 才)',yaoshi:'要是…，…吧',deng:'在 + place + 等',dao:'到 + place + 去',xing:'…，行吗？',bie:'别 + verb',le:'L5: 了 · 没 · 才'};
+/* t: tiles "text/slot" separated by spaces (in canonical order). alt: other correct orders (tile texts). Subject/time swaps are accepted automatically. */
+const ORDER=[
+{id:'o1',pat:'skel',en:'I’ll wait for you in the office.',h:'我在办公室等你。',p:'Wǒ zài bàngōngshì děng nǐ.',t:'我/S 在/P 办公室/P 等/V 你/O'},
+{id:'o2',pat:'skel',en:'Tomorrow morning I’ll wait for you in the classroom.',h:'明天上午我在教室等你。',p:'Míngtiān shàngwǔ wǒ zài jiàoshì děng nǐ.',t:'明天上午/T 我/S 在/P 教室/P 等/V 你/O'},
+{id:'o3',pat:'skel',en:'I have two classes tomorrow morning.',h:'明天上午我有两节课。',p:'Míngtiān shàngwǔ wǒ yǒu liǎng jié kè.',t:'明天上午/T 我/S 有/V 两/O 节/O 课/O'},
+{id:'o4',pat:'skel',en:'Teacher Chang is going to give the second-years a test at 3 p.m. tomorrow.',h:'常老师明天下午三点要给二年级考试。',p:'Cháng lǎoshī míngtiān xiàwǔ sān diǎn yào gěi èr niánjí kǎo shì.',t:'常老师/S 明天下午三点/T 要/H 给/P 二年级/P 考试/V'},
+{id:'o5',pat:'skel',en:'Where is the teacher’s office?',h:'老师的办公室在哪儿？',p:'Lǎoshī de bàngōngshì zài nǎr?',t:'老师的/S 办公室/S 在/V 哪儿/O'},
+{id:'o6',pat:'skel',en:'Is now a good time for you? (Are you free now?)',h:'你现在方便吗？',p:'Nǐ xiànzài fāngbiàn ma?',t:'你/S 现在/T 方便/V 吗/E'},
+{id:'o7',pat:'skel',en:'How many classes do you have today?',h:'今天你有几节课？',p:'Jīntiān nǐ yǒu jǐ jié kè?',t:'今天/T 你/S 有/V 几/O 节/O 课/O'},
+{id:'o8',pat:'skel',en:'This semester I have four courses.',h:'这个学期我有四门课。',p:'Zhège xuéqī wǒ yǒu sì mén kè.',t:'这个学期/T 我/S 有/V 四/O 门/O 课/O'},
+{id:'o9',pat:'skel',en:'That person IS Li You’s boyfriend.',h:'那个人就是李友的男朋友。',p:'Nàge rén jiù shì Lǐ Yǒu de nán péngyou.',t:'那个人/S 就/H 是/V 李友的/O 男朋友/O'},
+{id:'o71',pat:'skel',en:'Teacher, are you free this afternoon?',h:'老师，今天下午您有时间吗？',p:'Lǎoshī, jīntiān xiàwǔ nín yǒu shíjiān ma?',t:'老师/C 今天下午/T 您/S 有/V 时间/O 吗/E'},
+{id:'o10',pat:'yao',en:'I want a glass of ice water.',h:'我要一杯冰水。',p:'Wǒ yào yì bēi bīngshuǐ.',t:'我/S 要/V 一/O 杯/O 冰水/O'},
+{id:'o11',pat:'yao',en:'I don’t want beer; I want tea.',h:'我不要啤酒，我要茶。',p:'Wǒ bú yào píjiǔ, wǒ yào chá.',t:'我/S 不/H 要/V 啤酒/O 我/S 要/V 茶/O',alt:['我 要 茶 我 不 要 啤酒']},
+{id:'o12',pat:'yao',en:'Tomorrow afternoon I’m going to do homework.',h:'明天下午我要做功课。',p:'Míngtiān xiàwǔ wǒ yào zuò gōngkè.',t:'明天下午/T 我/S 要/H 做/V 功课/O'},
+{id:'o13',pat:'yao',en:'Tomorrow I’m not going to see a movie; I’m going to do homework.',h:'明天我不看电影，我要做功课。',p:'Míngtiān wǒ bú kàn diànyǐng, wǒ yào zuò gōngkè.',t:'明天/T 我/S 不/H 看/V 电影/O 我/S 要/H 做/V 功课/O'},
+{id:'o14',pat:'yao',en:'I want to go dancing this weekend.',h:'这个周末我想去跳舞。',p:'Zhège zhōumò wǒ xiǎng qù tiàowǔ.',t:'这个周末/T 我/S 想/H 去/V 跳舞/V'},
+{id:'o15',pat:'yao',en:'I’d like a dog.',h:'我想要一只狗。',p:'Wǒ xiǎng yào yì zhī gǒu.',t:'我/S 想/H 要/V 一只/O 狗/O'},
+{id:'o16',pat:'yao',en:'Tonight my older sister is going to see a movie.',h:'今天晚上我姐姐要去看电影。',p:'Jīntiān wǎnshang wǒ jiějie yào qù kàn diànyǐng.',t:'今天晚上/T 我姐姐/S 要/H 去/V 看/V 电影/O'},
+{id:'o17',pat:'yao',en:'I’d like that bottle of Coke.',h:'我想要那瓶可乐。',p:'Wǒ xiǎng yào nà píng kělè.',t:'我/S 想要/V 那/O 瓶/O 可乐/O'},
+{id:'o72',pat:'yao',en:'I’d like to ask you a few questions. (polite)',h:'我想问您几个问题。',p:'Wǒ xiǎng wèn nín jǐ ge wèntí.',t:'我/S 想/H 问/V 您/O 几个/O 问题/O'},
+{id:'o18',pat:'gei',en:'Mom calls the child.',h:'妈妈给孩子打电话。',p:'Māma gěi háizi dǎ diànhuà.',t:'妈妈/S 给/P 孩子/P 打/V 电话/O'},
+{id:'o19',pat:'gei',en:'Who do you often call?',h:'你常常给谁打电话？',p:'Nǐ chángcháng gěi shéi dǎ diànhuà?',t:'你/S 常常/H 给/P 谁/P 打/V 电话/O'},
+{id:'o20',pat:'gei',en:'The teacher is going to call Mom tomorrow.',h:'老师明天要给妈妈打电话。',p:'Lǎoshī míngtiān yào gěi māma dǎ diànhuà.',t:'老师/S 明天/T 要/H 给/P 妈妈/P 打电话/V'},
+{id:'o21',pat:'gei',en:'Li You is going to call Wang Peng tonight.',h:'李友今天晚上要给王朋打电话。',p:'Lǐ Yǒu jīntiān wǎnshang yào gěi Wáng Péng dǎ diànhuà.',t:'李友/S 今天晚上/T 要/H 给/P 王朋/P 打/V 电话/O'},
+{id:'o22',pat:'gei',en:'Please give me a cup of tea.',h:'请给我一杯茶。',p:'Qǐng gěi wǒ yì bēi chá.',t:'请/H 给/V 我/O 一杯/O 茶/O'},
+{id:'o23',pat:'gei',en:'Please introduce your classmates to me.',h:'请给我介绍一下你的同学。',p:'Qǐng gěi wǒ jièshào yíxià nǐ de tóngxué.',t:'请/H 给/P 我/P 介绍/V 一下/V 你的同学/O'},
+{id:'o24',pat:'gei',en:'Gao Wenzhong gave me a Chinese book.',h:'高文中给了我一本中文书。',p:'Gāo Wénzhōng gěi le wǒ yì běn Zhōngwén shū.',t:'高文中/S 给/V 了/E 我/O 一本/O 中文书/O'},
+{id:'o25',pat:'gei',en:'My friend shows me her photos.',h:'我的朋友给我看她的照片。',p:'Wǒ de péngyou gěi wǒ kàn tā de zhàopiàn.',t:'我的朋友/S 给/P 我/P 看/V 她的照片/O'},
+{id:'o74',pat:'gei',en:'Last week the teacher gave us a test.',h:'上个星期老师给我们考试了。',p:'Shàng ge xīngqī lǎoshī gěi wǒmen kǎo shì le.',t:'上个星期/T 老师/S 给/P 我们/P 考试/V 了/E'},
+{id:'o26',pat:'na',en:'Which teacher do you know?',h:'你认识哪位老师？',p:'Nǐ rènshi nǎ wèi lǎoshī?',t:'你/S 认识/V 哪/O 位/O 老师/O'},
+{id:'o27',pat:'na',en:'Which coffee shop do you want to go to?',h:'你想去哪个咖啡馆？',p:'Nǐ xiǎng qù nǎ ge kāfēiguǎn?',t:'你/S 想/H 去/V 哪/O 个/O 咖啡馆/O'},
+{id:'o28',pat:'na',en:'Which country are you from?',h:'你是哪国人？',p:'Nǐ shì nǎ guó rén?',t:'你/S 是/V 哪/O 国/O 人/O'},
+{id:'o29',pat:'na',en:'Who is this, please? (polite, on the phone)',h:'您是哪位？',p:'Nín shì nǎ wèi?',t:'您/S 是/V 哪/O 位/O'},
+{id:'o30',pat:'na',en:'Which library do you like best?',h:'你最喜欢哪个图书馆？',p:'Nǐ zuì xǐhuan nǎ ge túshūguǎn?',t:'你/S 最/H 喜欢/V 哪/O 个/O 图书馆/O'},
+{id:'o31',pat:'time',en:'What did you do last week?',h:'你上个星期做了什么？',p:'Nǐ shàng ge xīngqī zuò le shénme?',t:'你/S 上个星期/T 做/V 了/E 什么/O'},
+{id:'o32',pat:'time',en:'Do you have a Chinese quiz next Friday?',h:'你下个星期五有中文小考吗？',p:'Nǐ xià ge xīngqīwǔ yǒu Zhōngwén xiǎokǎo ma?',t:'你/S 下个星期五/T 有/V 中文/O 小考/O 吗/E'},
+{id:'o33',pat:'time',en:'How many tests do you have next month?',h:'你下个月有几个考试？',p:'Nǐ xià ge yuè yǒu jǐ ge kǎoshì?',t:'你/S 下个月/T 有/V 几个/O 考试/O'},
+{id:'o34',pat:'time',en:'I study Chinese five days a week.',h:'我一个星期学五天中文。',p:'Wǒ yí ge xīngqī xué wǔ tiān Zhōngwén.',t:'我/S 一个星期/T 学/V 五天/D 中文/O'},
+{id:'o35',pat:'time',en:'I have studied Chinese for three months.',h:'我学了三个月中文。',p:'Wǒ xué le sān ge yuè Zhōngwén.',t:'我/S 学/V 了/E 三个月/D 中文/O'},
+{id:'o36',pat:'time',en:'Are you going home the week after next?',h:'下下个星期你回家吗？',p:'Xiàxià ge xīngqī nǐ huí jiā ma?',t:'下下个星期/T 你/S 回家/V 吗/E'},
+{id:'o37',pat:'time',en:'What year of college are you in?',h:'你是大学几年级的学生？',p:'Nǐ shì dàxué jǐ niánjí de xuésheng?',t:'你/S 是/V 大学/O 几/O 年级/O 的/O 学生/O'},
+{id:'o38',pat:'time',en:'Little Gao isn’t going to China until June next year.',h:'小高明年六月才去中国。',p:'Xiǎo Gāo míngnián liùyuè cái qù Zhōngguó.',t:'小高/S 明年/T 六月/T 才/H 去/V 中国/O'},
+{id:'o73',pat:'time',en:'When are you free? (polite)',h:'您什么时候有空儿？',p:'Nín shénme shíhou yǒu kòngr?',t:'您/S 什么时候/T 有/V 空儿/O'},
+{id:'o75',pat:'time',en:'Do you have a Chinese quiz this week?',h:'这个星期你有没有中文小考？',p:'Zhège xīngqī nǐ yǒu méiyǒu Zhōngwén xiǎokǎo?',t:'这个星期/T 你/S 有没有/V 中文小考/O'},
+{id:'o39',pat:'yihou',en:'After class, I’m going to the library to read.',h:'下课以后，我要去图书馆看书。',p:'Xià kè yǐhòu, wǒ yào qù túshūguǎn kàn shū.',t:'下课/T 以后/T 我/S 要/H 去/V 图书馆/O 看书/V'},
+{id:'o40',pat:'yihou',en:'After watching the movie, let’s go eat.',h:'看了电影以后，我们去吃饭吧。',p:'Kàn le diànyǐng yǐhòu, wǒmen qù chī fàn ba.',t:'看了/T 电影/T 以后/T 我们/S 去/V 吃饭/V 吧/E'},
+{id:'o41',pat:'yihou',en:'After 12 noon, let’s go to the library to do homework.',h:'中午十二点以后，我们去图书馆做功课吧。',p:'Zhōngwǔ shí’èr diǎn yǐhòu, wǒmen qù túshūguǎn zuò gōngkè ba.',t:'中午十二点/T 以后/T 我们/S 去/V 图书馆/O 做/V 功课/O 吧/E'},
+{id:'o42',pat:'yihou',en:'I’m not free until after four tomorrow.',h:'我明天四点以后才有空。',p:'Wǒ míngtiān sì diǎn yǐhòu cái yǒu kòng.',t:'我/S 明天/T 四点/T 以后/T 才/H 有空/V'},
+{id:'o43',pat:'yihou',en:'What are you going to do after 10 tonight?',h:'今天晚上十点以后你要做什么？',p:'Jīntiān wǎnshang shí diǎn yǐhòu nǐ yào zuò shénme?',t:'今天晚上/T 十点/T 以后/T 你/S 要/H 做/V 什么/O'},
+{id:'o44',pat:'yaoshi',en:'If you’re free, let’s go eat Chinese food.',h:'要是你有空儿，我们去吃中国菜吧。',p:'Yàoshi nǐ yǒu kòngr, wǒmen qù chī Zhōngguó cài ba.',t:'要是/C 你/S 有空儿/V 我们/S 去/V 吃/V 中国菜/O 吧/E',alt:['你 要是 有空儿 我们 去 吃 中国菜 吧']},
+{id:'o45',pat:'yaoshi',en:'If you’re not busy tomorrow, how about we go see a movie?',h:'要是明天你不忙，我们去看电影，怎么样？',p:'Yàoshi míngtiān nǐ bù máng, wǒmen qù kàn diànyǐng, zěnmeyàng?',t:'要是/C 明天/T 你/S 不/H 忙/V 我们/S 去/V 看/V 电影/O 怎么样/E',alt:['你 要是 明天 不 忙 我们 去 看 电影 怎么样','明天 你 要是 不 忙 我们 去 看 电影 怎么样']},
+{id:'o46',pat:'yaoshi',en:'If it’s convenient for you, I’ll go to your office at 4:30, OK?',h:'要是您方便，四点半我到您的办公室去，行吗？',p:'Yàoshi nín fāngbiàn, sì diǎn bàn wǒ dào nín de bàngōngshì qù, xíng ma?',t:'要是/C 您/S 方便/V 四点半/T 我/S 到/P 您的办公室/P 去/V 行吗/E',alt:['您 要是 方便 四点半 我 到 您的办公室 去 行吗']},
+{id:'o47',pat:'yaoshi',en:'If I have no homework, I want to go dancing.',h:'要是我没有功课，我想去跳舞。',p:'Yàoshi wǒ méiyǒu gōngkè, wǒ xiǎng qù tiàowǔ.',t:'要是/C 我/S 没有/V 功课/O 我/S 想/H 去/V 跳舞/V',alt:['我 要是 没有 功课 我 想 去 跳舞']},
+{id:'o48',pat:'deng',en:'I’ll wait for you in the library, OK?',h:'我在图书馆等你，行吗？',p:'Wǒ zài túshūguǎn děng nǐ, xíng ma?',t:'我/S 在/P 图书馆/P 等/V 你/O 行吗/E'},
+{id:'o49',pat:'deng',en:'I’ll wait for you at the coffee shop.',h:'我在咖啡馆等你。',p:'Wǒ zài kāfēiguǎn děng nǐ.',t:'我/S 在/P 咖啡馆/P 等/V 你/O'},
+{id:'o50',pat:'deng',en:'Teacher Chang waits for Li You in the office.',h:'常老师在办公室等李友。',p:'Cháng lǎoshī zài bàngōngshì děng Lǐ Yǒu.',t:'常老师/S 在/P 办公室/P 等/V 李友/O'},
+{id:'o51',pat:'deng',en:'Please wait a moment.',h:'请等一下。',p:'Qǐng děng yíxià.',t:'请/H 等/V 一下/V'},
+{id:'o52',pat:'dao',en:'After class I go to the library to read.',h:'下课以后我到图书馆去看书。',p:'Xià kè yǐhòu wǒ dào túshūguǎn qù kàn shū.',t:'下课/T 以后/T 我/S 到/P 图书馆/P 去/V 看书/V'},
+{id:'o53',pat:'dao',en:'Teacher, I’ll go to your office at 10:30 a.m., is that OK?',h:'老师，我上午十点半到您的办公室去，行吗？',p:'Lǎoshī, wǒ shàngwǔ shí diǎn bàn dào nín de bàngōngshì qù, xíng ma?',t:'老师/C 我/S 上午十点半/T 到/P 您的办公室/P 去/V 行吗/E'},
+{id:'o54',pat:'dao',en:'I’ll go to your dorm at 6 p.m., is that OK?',h:'我晚上六点到你的宿舍去，行吗？',p:'Wǒ wǎnshang liù diǎn dào nǐ de sùshè qù, xíng ma?',t:'我/S 晚上六点/T 到/P 你的宿舍/P 去/V 行吗/E'},
+{id:'o55',pat:'dao',en:'She goes to the library to do homework.',h:'她到图书馆去做功课。',p:'Tā dào túshūguǎn qù zuò gōngkè.',t:'她/S 到/P 图书馆/P 去/V 做/V 功课/O'},
+{id:'o56',pat:'dao',en:'He arrived at the library.',h:'他到图书馆了。',p:'Tā dào túshūguǎn le.',t:'他/S 到/V 图书馆/O 了/E'},
+{id:'o57',pat:'xing',en:'Sorry, I have a meeting at 8:30 tomorrow morning.',h:'对不起，我明天上午八点半要开会。',p:'Duìbuqǐ, wǒ míngtiān shàngwǔ bā diǎn bàn yào kāi huì.',t:'对不起/C 我/S 明天上午八点半/T 要/H 开会/V'},
+{id:'o58',pat:'xing',en:'Teacher, I’ll come to your office at 8:30 tomorrow morning, OK?',h:'老师，我明天上午八点半到您的办公室，行吗？',p:'Lǎoshī, wǒ míngtiān shàngwǔ bā diǎn bàn dào nín de bàngōngshì, xíng ma?',t:'老师/C 我/S 明天上午八点半/T 到/V 您的办公室/O 行吗/E'},
+{id:'o59',pat:'xing',en:'After class we’ll go to the library, OK?',h:'下课以后我们去图书馆，行不行？',p:'Xià kè yǐhòu wǒmen qù túshūguǎn, xíng bu xíng?',t:'下课以后/T 我们/S 去/V 图书馆/O 行不行/E'},
+{id:'o60',pat:'bie',en:'Please don’t come in!',h:'请别进来！',p:'Qǐng bié jìnlai!',t:'请/H 别/H 进来/V'},
+{id:'o61',pat:'bie',en:'Don’t look at me!',h:'别看我！',p:'Bié kàn wǒ!',t:'别/H 看/V 我/O'},
+{id:'o62',pat:'bie',en:'That movie is boring, don’t go see it!',h:'那个电影没有意思，别去看！',p:'Nàge diànyǐng méiyǒu yìsi, bié qù kàn!',t:'那个电影/S 没有意思/V 别/H 去/V 看/V',alt:['别 去 看 那个电影 没有意思']},
+{id:'o63',pat:'bie',en:'He’s very busy, don’t call him!',h:'他很忙，别给他打电话！',p:'Tā hěn máng, bié gěi tā dǎ diànhuà!',t:'他/S 很/H 忙/V 别/H 给/P 他/P 打/V 电话/O',alt:['别 给 他 打 电话 他 很 忙']},
+{id:'o64',pat:'le',en:'I watched two foreign movies.',h:'我看了两个外国电影。',p:'Wǒ kàn le liǎng ge wàiguó diànyǐng.',t:'我/S 看/V 了/E 两个/O 外国电影/O'},
+{id:'o65',pat:'le',en:'Last night I didn’t sleep.',h:'昨天晚上我没睡觉。',p:'Zuótiān wǎnshang wǒ méi shuì jiào.',t:'昨天晚上/T 我/S 没/H 睡觉/V'},
+{id:'o66',pat:'le',en:'Wang Peng and Li You didn’t go home until midnight.',h:'王朋和李友晚上十二点才回家。',p:'Wáng Péng hé Lǐ Yǒu wǎnshang shí’èr diǎn cái huí jiā.',t:'王朋和李友/S 晚上十二点/T 才/H 回家/V'},
+{id:'o67',pat:'le',en:'Li You only drank one glass of water.',h:'李友只喝了一杯水。',p:'Lǐ Yǒu zhǐ hē le yì bēi shuǐ.',t:'李友/S 只/H 喝/V 了/E 一/O 杯/O 水/O'},
+{id:'o68',pat:'le',en:'Last night I didn’t start my homework until 10.',h:'我昨天晚上十点才做功课。',p:'Wǒ zuótiān wǎnshang shí diǎn cái zuò gōngkè.',t:'我/S 昨天晚上十点/T 才/H 做/V 功课/O'},
+{id:'o69',pat:'le',en:'I didn’t drink coffee today.',h:'我今天没喝咖啡。',p:'Wǒ jīntiān méi hē kāfēi.',t:'我/S 今天/T 没/H 喝/V 咖啡/O'},
+{id:'o70',pat:'le',en:'Tomorrow I’ll go see a movie after I eat dinner.',h:'明天我吃了晚饭去看电影。',p:'Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.',t:'明天/T 我/S 吃/V 了/E 晚饭/O 去/V 看/V 电影/O'}
+];
+/* Word building */
+const BUILD=[
+{w:'打电话',p:'dǎ diànhuà',e:'to make a phone call',parts:[['打','dǎ','to hit; to do (a call)'],['电','diàn','electricity'],['话','huà','speech; words']],how:'打 (do) + 电话 (telephone: “electric speech”) → make a phone call. 打 is also in 打球 (play ball).'},
+{w:'办公室',p:'bàngōngshì',e:'office',parts:[['办','bàn','to handle; to do'],['公','gōng','public; official'],['室','shì','room']],how:'办公 (handle official business) + 室 (room) → office.'},
+{w:'年级',p:'niánjí',e:'grade; year in school',parts:[['年','nián','year'],['级','jí','level; grade']],how:'year + level → grade, year in school: 二年级 = second year.'},
+{w:'小考',p:'xiǎokǎo',e:'quiz',parts:[['小','xiǎo','small'],['考','kǎo','to test']],how:'a small test → quiz. Compare 考试, a full test.'},
+{w:'考试',p:'kǎo shì',e:'test; to take a test',parts:[['考','kǎo','to test; to examine'],['试','shì','to try']],how:'test + try → test; to give or take a test.'},
+{w:'开会',p:'kāi huì',e:'to have a meeting',parts:[['开','kāi','to open; to hold'],['会','huì','meeting']],how:'hold + meeting → have a meeting.'},
+{w:'问题',p:'wèntí',e:'question; problem',parts:[['问','wèn','to ask'],['题','tí','topic; problem']],how:'ask + topic → question.'},
+{w:'没问题',p:'méi wèntí',e:'no problem',parts:[['没','méi','not have'],['问','wèn','to ask'],['题','tí','topic; problem']],how:'没 (no) + 问题 (problem) → no problem.'},
+{w:'上课',p:'shàng kè',e:'to go to class',parts:[['上','shàng','to go up; to attend'],['课','kè','class']],how:'go up to + class → go to class; class begins.'},
+{w:'下课',p:'xià kè',e:'class is over',parts:[['下','xià','to go down; to leave'],['课','kè','class']],how:'come down from + class → get out of class; class is over.'},
+{w:'有空',p:'yǒu kòng',e:'to be free; to have free time',parts:[['有','yǒu','to have'],['空','kòng','free time']],how:'have + free time → be free. The opposite is 没空.'},
+{w:'时间',p:'shíjiān',e:'time',parts:[['时','shí','time; hour'],['间','jiān','between; a span']],how:'time + span → time. 有时间 = 有空.'},
+{w:'以后',p:'yǐhòu',e:'after',parts:[['以','yǐ','(here) from … on'],['后','hòu','after; behind']],how:'from … on + after → after. It comes AFTER the time: 四点以后.'},
+{w:'去年',p:'qùnián',e:'last year',parts:[['去','qù','to go; (here) gone by'],['年','nián','year']],how:'the year that has gone → last year.'},
+{w:'今年',p:'jīnnián',e:'this year',parts:[['今','jīn','now; this (as in 今天)'],['年','nián','year']],how:'this + year.'},
+{w:'明年',p:'míngnián',e:'next year',parts:[['明','míng','bright; (here) next, as in 明天'],['年','nián','year']],how:'next + year.'},
+{w:'上午',p:'shàngwǔ',e:'morning',parts:[['上','shàng','upper; first part'],['午','wǔ','noon']],how:'the part before noon → morning.'},
+{w:'中午',p:'zhōngwǔ',e:'noon',parts:[['中','zhōng','middle'],['午','wǔ','noon']],how:'the middle of the day → noon.'},
+{w:'下午',p:'xiàwǔ',e:'afternoon',parts:[['下','xià','lower; later part'],['午','wǔ','noon']],how:'the part after noon → afternoon.'},
+{w:'上个星期',p:'shàng ge xīngqī',e:'last week',parts:[['上','shàng','last; previous'],['个','ge','measure word'],['星','xīng','star'],['期','qī','period']],how:'上 (last) + 个 + 星期 (week) → last week. 上上个星期 = the week before last.'},
+{w:'下个星期',p:'xià ge xīngqī',e:'next week',parts:[['下','xià','next'],['个','ge','measure word'],['星','xīng','star'],['期','qī','period']],how:'下 (next) + 个 + 星期 (week) → next week. 下下个星期 = the week after next.'},
+{w:'别客气',p:'bié kèqi',e:'you’re welcome',parts:[['别','bié','don’t'],['客','kè','guest'],['气','qì','air; manner']],how:'别 (don’t) + 客气 (polite, “guest manners”) → don’t be so polite → you’re welcome.'},
+{w:'方便',p:'fāngbiàn',e:'convenient',parts:[['方','fāng','direction; way'],['便','biàn','handy']],how:'way + handy → convenient. Easiest to learn as one word.'},
+{w:'要是',p:'yàoshi',e:'if',parts:[['要','yào','to want; going to'],['是','shì','to be']],how:'Together these two characters mean “if”. Learn it as one word.'},
+{w:'您',p:'nín',e:'you (polite)',comp:true,parts:[['你','nǐ','you'],['心','xīn','heart']],how:'A character built from parts: 你 sitting on 心 (heart) → “you”, said with respect.'}
+];
+const FAM=[
+{k:'课 · class',items:[['课','kè','class; course'],['上课','shàng kè','go to class'],['下课','xià kè','class is over'],['中文课','Zhōngwén kè','Chinese class'],['一节课','yì jié kè','one class period'],['四门课','sì mén kè','four courses']],note:'节 counts class periods (today); 门 counts courses (this semester).'},
+{k:'考 · test',items:[['考试','kǎo shì','test; take a test'],['小考','xiǎokǎo','quiz']]},
+{k:'问 · ask',items:[['问','wèn','to ask'],['问题','wèntí','question'],['没问题','méi wèntí','no problem'],['请问','qǐngwèn','may I ask…']]},
+{k:'年 · year',items:[['去年','qùnián','last year'],['今年','jīnnián','this year'],['明年','míngnián','next year'],['年级','niánjí','grade; year in school'],['一年','yì nián','one year (no 个)']],note:'Same 今 / 明 as 今天 / 明天. Years never use 上个 / 下个.'},
+{k:'星期 · week',items:[['上上个星期','shàngshàng ge xīngqī','the week before last'],['上个星期','shàng ge xīngqī','last week'],['这个星期','zhège xīngqī','this week'],['下个星期','xià ge xīngqī','next week'],['下下个星期','xiàxià ge xīngqī','the week after next']],note:'Months work the same way: 上个月 · 这个月 · 下个月.'},
+{k:'天 · day (from Lesson 3)',items:[['昨天','zuótiān','yesterday'],['今天','jīntiān','today'],['明天','míngtiān','tomorrow']]},
+{k:'午 · noon',items:[['上午','shàngwǔ','morning (8–12)'],['中午','zhōngwǔ','noon (12–1)'],['下午','xiàwǔ','afternoon (1–5)']]},
+{k:'空 · 时间 · free time',items:[['空儿','kòngr','free time'],['有空','yǒu kòng','to be free'],['没空','méi kòng','not free'],['有时间','yǒu shíjiān','to have time'],['没时间','méi shíjiān','to have no time']]},
+{k:'电 · electric',items:[['电话','diànhuà','telephone'],['打电话','dǎ diànhuà','make a phone call'],['电影','diànyǐng','movie'],['电视','diànshì','TV']]},
+{k:'上 / 下 · up / down',items:[['上课 · 下课','shàng kè · xià kè','go to class · class is over'],['上个月 · 下个月','shàng ge yuè · xià ge yuè','last month · next month'],['上午 · 下午','shàngwǔ · xiàwǔ','morning · afternoon']],note:'上 = up, earlier, previous. 下 = down, later, next.'},
+{k:'别 · don’t',items:[['别','bié','don’t'],['别看我','bié kàn wǒ','don’t look at me'],['请别进来','qǐng bié jìnlai','please don’t come in'],['别客气','bié kèqi','you’re welcome']]}
+];
+/* English → Chinese translation drills (slides’ own answers) */
+const TR=[
+{src:'W12 Mon p.9',en:'Tonight my older sister is going to watch a movie.',cue:'电影',a:'今天晚上我姐姐要去看电影。',acc:['我姐姐今天晚上要去看电影','今天晚上我姐姐要看电影'],p:'Jīntiān wǎnshang wǒ jiějie yào qù kàn diànyǐng.',hint:'要 + verb = going to. Time goes before the verb.'},
+{src:'W12 Mon p.9',en:'I want to play at Little Bai’s home tomorrow afternoon.',cue:'玩',a:'明天下午我想去小白家玩。',acc:['我明天下午想去小白家玩'],p:'Míngtiān xiàwǔ wǒ xiǎng qù Xiǎo Bái jiā wán.',hint:'想 + verb = want to. 去 + place + verb.'},
+{src:'W12 Mon p.9',en:'I want to go dance this weekend.',a:'这个周末我想去跳舞。',acc:['我这个周末想去跳舞'],p:'Zhège zhōumò wǒ xiǎng qù tiàowǔ.',hint:'想 + verb. The time (这个周末) goes before the verb.'},
+{src:'W12 Mon p.9',en:'I want that bottle of Coke. Can you give it to me?',cue:'瓶 · 给',a:'我想要那瓶可乐。你可以给我吗？',acc:['我要那瓶可乐你可以给我吗'],p:'Wǒ xiǎng yào nà píng kělè. Nǐ kěyǐ gěi wǒ ma?',hint:'(想)要 + noun = want something. 那 + 瓶 + 可乐.'},
+{src:'W12 Mon p.9',en:'After class, I am going to go to the library to read a book.',a:'下课以后，我要去图书馆看书。',acc:['下课以后我想要去图书馆看书','我下课以后要去图书馆看书','下课以后我要到图书馆去看书'],p:'Xià kè yǐhòu, wǒ yào qù túshūguǎn kàn shū.',hint:'Event + 以后 comes first; 要 + verb = going to.'},
+{src:'W12 Mon p.9',en:'I’m not available until after 4:00 tomorrow.',cue:'才 · 有空',a:'我明天四点以后才有空。',acc:['明天四点以后我才有空'],p:'Wǒ míngtiān sì diǎn yǐhòu cái yǒu kòng.',hint:'Time + 以后 + 才 + verb = not until after…'},
+{src:'W12 Mon',en:'Teacher, I will get to your office at 10:30 a.m., is that okay?',cue:'您',a:'老师，我上午十点半到您的办公室去，行吗？',acc:['老师上午十点半我到您的办公室去行吗','老师我上午十点半到您的办公室行吗'],p:'Lǎoshī, wǒ shàngwǔ shí diǎn bàn dào nín de bàngōngshì qù, xíng ma?',hint:'到 + place + 去; suggestion + 行吗？'},
+{src:'W12 Mon',en:'I will get to your dorm at 6:00 p.m., is that okay?',cue:'宿舍 sùshè',a:'我晚上六点到你的宿舍去，行吗？',acc:['晚上六点我到你的宿舍去行吗'],p:'Wǒ wǎnshang liù diǎn dào nǐ de sùshè qù, xíng ma?',hint:'Time before 到 + place + 去; end with 行吗？'},
+{src:'W12 Mon',en:'I will wait for you in the library, is that OK?',a:'我在图书馆等你，行吗？',acc:['我在图书馆等你行不行'],p:'Wǒ zài túshūguǎn děng nǐ, xíng ma?',hint:'S1 + 在 + place + 等 + S2.'},
+{src:'W11 Tue',en:'I am going to introduce my friend to Nemo.',cue:'给',a:'我要给Nemo介绍我的朋友。',p:'Wǒ yào gěi Nemo jièshào wǒ de péngyou.',hint:'给 + person goes before the verb 介绍.'},
+{src:'W11 Tue',en:'I don’t want iced water. I want hot water.',cue:'冰 bīng · 热 rè',a:'我不要冰水，我要热水。',p:'Wǒ bú yào bīngshuǐ, wǒ yào rèshuǐ.',hint:'要 + noun; the negative is 不要.'},
+{src:'W11 Tue',en:'I am not going to visit Little Bai tomorrow. I am going to study Chinese in the library.',cue:'去…家 · 玩儿 · 学',a:'明天我不去小白家玩儿，我要去图书馆学中文。',acc:['我明天不去小白家玩我要去图书馆学中文','明天我不去小白家玩我要在图书馆学中文'],p:'Míngtiān wǒ bú qù Xiǎo Bái jiā wánr, wǒ yào qù túshūguǎn xué Zhōngwén.',hint:'Not going to = 不 + verb; going to = 要 + verb.'},
+{src:'W11 Thu',en:'What did you do last week?',a:'你上个星期做了什么？',acc:['上个星期你做了什么','你上个星期做什么了'],p:'Nǐ shàng ge xīngqī zuò le shénme?',hint:'上个星期 = last week; time before the verb; 了 for a finished action.'},
+{src:'W11 Thu',en:'Do you have a Chinese quiz next Friday?',a:'你下个星期五有中文小考吗？',acc:['下个星期五你有中文小考吗','你下个星期五有没有中文小考'],p:'Nǐ xià ge xīngqīwǔ yǒu Zhōngwén xiǎokǎo ma?',hint:'下个 = next; a yes/no question with 吗.'},
+{src:'W11 Thu',en:'How many exams do you have next month?',a:'你下个月有几个考试？',acc:['下个月你有几个考试'],p:'Nǐ xià ge yuè yǒu jǐ ge kǎoshì?',hint:'下个月 = next month; 几 + 个 + noun.'},
+{src:'W11 Thu',en:'Where do you come from?',cue:'国',a:'你是哪国人？',p:'Nǐ shì nǎ guó rén?',hint:'哪国人 = a person of which country.'},
+{src:'W11 Thu',en:'Which teacher do you know?',cue:'认识 · 位 · 老师',a:'你认识哪位老师？',p:'Nǐ rènshi nǎ wèi lǎoshī?',hint:'哪 + 位 + 老师, in the spot where the answer would go.'},
+{src:'W11 Thu',en:'Which coffee shop do you want to go to?',cue:'个 · 咖啡馆',a:'你想去哪个咖啡馆？',p:'Nǐ xiǎng qù nǎ ge kāfēiguǎn?',hint:'哪 + 个 + 咖啡馆.'},
+{src:'W11 Thu',en:'If you are free, let’s go eat Chinese food.',a:'要是你有空儿，我们去吃中国菜吧。',acc:['你要是有空我们去吃中国菜吧','要是你有时间我们去吃中国菜吧'],p:'Yàoshi nǐ yǒu kòngr, wǒmen qù chī Zhōngguó cài ba.',hint:'要是 + situation，result + 吧.'},
+{src:'W11 Thu',en:'If you are not busy tomorrow, how about we go see a movie?',a:'要是明天你不忙，我们去看电影，怎么样？',acc:['要是你明天不忙我们去看电影怎么样','你要是明天不忙我们去看电影怎么样'],p:'Yàoshi míngtiān nǐ bù máng, wǒmen qù kàn diànyǐng, zěnmeyàng?',hint:'要是…，…，怎么样？'},
+{src:'W12 Mon',en:'If I get an A on my Chinese exam, I’ll treat you all to a meal.',cue:'得 dé = get',a:'要是我中文考试得A，我请你们吃饭。',acc:['我要是中文考试得A我请你们吃饭'],p:'Yàoshi wǒ Zhōngwén kǎoshì dé A, wǒ qǐng nǐmen chī fàn.',hint:'要是 + situation，result.'},
+{src:'W12 Mon',en:'If a classmate invites you to a meal, what dish do you want to eat?',cue:'请 · 菜',a:'要是同学请你吃饭，你想吃什么菜？',p:'Yàoshi tóngxué qǐng nǐ chī fàn, nǐ xiǎng chī shénme cài?',hint:'要是 + situation，then the question.'},
+{src:'W11 Mon (L5)',en:'Yesterday, we drank coffee and listened to Chinese music.',a:'昨天我们喝了咖啡、听了中文音乐。',acc:['我们昨天喝了咖啡听了中文音乐'],p:'Zuótiān wǒmen hē le kāfēi, tīng le Zhōngwén yīnyuè.',hint:'A series of finished actions: 了 right after each verb.'},
+{src:'W11 Mon (L5)',en:'On Saturday, I did not do any homework.',a:'星期六我没做功课。',acc:['我星期六没做功课','星期六我没有做功课','我星期六没有做功课'],p:'Xīngqīliù wǒ méi zuò gōngkè.',hint:'没 + verb, with no 了.'},
+{src:'W11 Mon (L5)',en:'Tomorrow, I’ll go see a movie after I eat dinner.',a:'明天我吃了晚饭去看电影。',acc:['我明天吃了晚饭去看电影','明天我吃了晚饭以后去看电影','明天吃了晚饭以后我去看电影'],p:'Míngtiān wǒ chī le wǎnfàn qù kàn diànyǐng.',hint:'V1 + 了 + O1, then V2: do one thing, then the next.'},
+{src:'W11 Mon (L5)',en:'Today, Li You made four new friends.',cue:'认识 · 新 xīn',a:'今天李友认识了四个新朋友。',acc:['李友今天认识了四个新朋友'],p:'Jīntiān Lǐ Yǒu rènshi le sì ge xīn péngyou.',hint:'The object has a number, so 了 goes right after the verb.'},
+{src:'W11 Mon (L5)',en:'She goes to bed very late at night.',a:'她晚上很晚才睡觉。',p:'Tā wǎnshang hěn wǎn cái shuì jiào.',hint:'才 = later than expected; no 了.'},
+{src:'W11 Mon (L5)',en:'We eat dinner at six. She doesn’t come until quarter past six.',a:'我们六点吃晚饭。她六点一刻才来。',p:'Wǒmen liù diǎn chī wǎnfàn. Tā liù diǎn yí kè cái lái.',hint:'Time + 才 + verb.'},
+{src:'W11 Mon (L5)',en:'Yesterday, I didn’t do homework until 10 p.m.',a:'我昨天晚上十点才做功课。',acc:['昨天晚上十点我才做功课','昨天晚上我十点才做功课'],p:'Wǒ zuótiān wǎnshang shí diǎn cái zuò gōngkè.',hint:'才 right before the verb; no 了.'},
+{src:'Dialogue 1',en:'Hello, may I ask, is Teacher Chang there?',a:'喂，请问，常老师在吗？',p:'Wéi, qǐngwèn, Cháng lǎoshī zài ma?',hint:'喂 on the phone; 在 = to be there.'},
+{src:'Dialogue 1',en:'This is she (speaking). Who is this, please?',a:'我就是。您是哪位？',p:'Wǒ jiù shì. Nín shì nǎ wèi?',hint:'就 = exactly; 哪 + 位 (polite).'},
+{src:'Dialogue 1',en:'Teacher, are you free this afternoon? I’d like to ask you a few questions.',a:'老师，今天下午您有时间吗？我想问您几个问题。',acc:['老师您今天下午有时间吗我想问您几个问题','老师今天下午您有空吗我想问您几个问题'],p:'Lǎoshī, jīntiān xiàwǔ nín yǒu shíjiān ma? Wǒ xiǎng wèn nín jǐ ge wèntí.',hint:'Time before the verb; 想 + 问 + person + thing.'},
+{src:'Dialogue 1',en:'I’m sorry, I have a meeting.',a:'对不起，我要开会。',p:'Duìbuqǐ, wǒ yào kāi huì.',hint:'要 + verb for a scheduled event.'},
+{src:'W12 Mon',en:'Tomorrow morning I have two classes. At 3 p.m. I will give the second-years an exam.',a:'明天上午我有两节课，下午三点要给二年级考试。',acc:['我明天上午有两节课下午三点要给二年级考试'],p:'Míngtiān shàngwǔ wǒ yǒu liǎng jié kè, xiàwǔ sān diǎn yào gěi èr niánjí kǎo shì.',hint:'节 counts class periods; 给 + people + 考试.'},
+{src:'W12 Mon',en:'When are you free? (polite)',a:'您什么时候有空儿？',acc:['您什么时候有时间'],p:'Nín shénme shíhou yǒu kòngr?',hint:'什么时候 is a time word: before the verb.'},
+{src:'W12 Mon',en:'Tomorrow I am not free until after 4 p.m.',a:'明天下午四点以后才有空儿。',acc:['我明天下午四点以后才有空','明天下午四点以后我才有空'],p:'Míngtiān xiàwǔ sì diǎn yǐhòu cái yǒu kòngr.',hint:'Time + 以后 + 才 + 有空.'},
+{src:'W12 Mon',en:'If it is convenient for you, I will go to your office at 4:30 p.m., is that alright?',a:'要是您方便，下午四点半我到您的办公室去，行吗？',acc:['要是您方便四点半我到您的办公室去行吗','要是您方便我下午四点半到您的办公室去行吗','您要是方便下午四点半我到您的办公室去行吗'],p:'Yàoshi nín fāngbiàn, xiàwǔ sì diǎn bàn wǒ dào nín de bàngōngshì qù, xíng ma?',hint:'要是…，time + 到 + place + 去，行吗？'},
+{src:'W12 Mon',en:'4:30, no problem. I will wait for you in my office.',a:'四点半，没问题。我在办公室等你。',p:'Sì diǎn bàn, méi wèntí. Wǒ zài bàngōngshì děng nǐ.',hint:'S1 + 在 + place + 等 + S2.'},
+{src:'W12 Mon',en:'“Thank you.” “You’re welcome.”',a:'谢谢您。别客气。',acc:['谢谢你别客气'],p:'Xièxie nín. Bié kèqi.',hint:'别客气 = don’t be so polite.'},
+{src:'W12 Mon',en:'Please don’t come in!',a:'请别进来！',p:'Qǐng bié jìnlai!',hint:'别 + verb = don’t.'},
+{src:'W12 Mon',en:'That movie is boring, don’t go see it!',a:'那个电影没有意思，别去看！',acc:['那个电影没意思别去看'],p:'Nàge diànyǐng méiyǒu yìsi, bié qù kàn!',hint:'别 + 去 + 看.'}
+];
+TR.forEach((x,i)=>x.id='t'+(i+1));
+/* Slot builder choices */
+const SB={
+S:[{z:'我',p:'wǒ',e:'I',f:1},{z:'你',p:'nǐ',e:'you',f:2},{z:'李友',p:'Lǐ Yǒu',e:'Li You',f:3},{z:'常老师',p:'Cháng lǎoshī',e:'Teacher Chang',f:3},{z:'我们',p:'wǒmen',e:'we',f:2}],
+T:[{z:'',e:'(none)'},{z:'今天下午',p:'jīntiān xiàwǔ',e:'this afternoon',u:'this afternoon'},{z:'明天上午',p:'míngtiān shàngwǔ',e:'tomorrow morning',u:'tomorrow morning'},{z:'四点以后',p:'sì diǎn yǐhòu',e:'after four o’clock',u:'after four o’clock'},{z:'下课以后',p:'xià kè yǐhòu',e:'after class',u:'after class'},{z:'下个星期',p:'xià ge xīngqī',e:'next week',u:'next week'},{z:'晚上八点',p:'wǎnshang bā diǎn',e:'at 8 p.m.',u:'8 p.m.'}],
+H:[{z:'',e:'(none)'},{z:'要',p:'yào',k:'yao',e:'going to'},{z:'想',p:'xiǎng',k:'xiang',e:'want to'},{z:'不',p:'bù',k:'bu',e:'not'},{z:'常常',p:'chángcháng',k:'often',e:'often'},{z:'才',p:'cái',k:'cai',e:'not until'},{z:'别',p:'bié',k:'bie',e:'don’t'}],
+P:[{z:'',e:'(none)'},{z:'在图书馆',p:'zài túshūguǎn',k:'zai',e:'in the library'},{z:'在办公室',p:'zài bàngōngshì',k:'zai',e:'in the office'},{z:'在咖啡馆',p:'zài kāfēiguǎn',k:'zai',e:'at the coffee shop'},{z:'给妈妈',p:'gěi māma',k:'gei',e:'Mom'},{z:'给老师',p:'gěi lǎoshī',k:'gei',e:'the teacher'},{z:'到图书馆去',p:'dào túshūguǎn qù',k:'dao',e:'the library'},{z:'到办公室去',p:'dào bàngōngshì qù',k:'dao',e:'the office'}],
+V:[{v:'打',vp:'dǎ',o:'电话',op:'diànhuà',ve:['make','makes'],oe:'a phone call'},{v:'看',vp:'kàn',o:'书',op:'shū',ve:['read','reads'],oe:'books'},{v:'做',vp:'zuò',o:'功课',op:'gōngkè',ve:['do','does'],oe:'homework'},{v:'开',vp:'kāi',o:'会',op:'huì',ve:['have','has'],oe:'a meeting'},{v:'喝',vp:'hē',o:'咖啡',op:'kāfēi',ve:['drink','drinks'],oe:'coffee'},{v:'等',vp:'děng',o:'朋友',op:'péngyou',ve:['wait for','waits for'],oe:'a friend'},{v:'问',vp:'wèn',o:'问题',op:'wèntí',ve:['ask','asks'],oe:'questions'}]
+};
+WRITE.forEach(w=>w.list='write');
+const ALL=WRITE;
+const KEY='l6-practice-v1';
+/* ================= CORE (same engine as Lesson 5) ================= */
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+let M={};try{M=JSON.parse(lsGet(KEY)||'{}');}catch(e){M={};}
+let lastRec=null;
+function save(){lsSet(KEY,JSON.stringify(M));}
+function rec(id,kind,ok){const k=id+'|'+kind,prev=M[k]?Object.assign({},M[k]):null,m=M[k]||{n:0,r:0,s:0};m.n++;if(ok){m.r++;m.s++;}else m.s=0;M[k]=m;lastRec={k,prev,id,kind};save();}
+function fixLast(ok){if(!lastRec)return;const L=lastRec;if(L.prev)M[L.k]=L.prev;else delete M[L.k];rec(L.id,L.kind,ok);}
+function mastery(id,kind){const m=M[id+'|'+kind];return m?Math.min(1,m.s/3):0;}
+function pick(list,kind,last,key){key=key||(w=>w.h);const ws=list.map(w=>{const m=M[key(w)+'|'+kind];const x=!m?4:(m.s>=3?0.5:3.5-m.s);return w===last&&list.length>1?0.001:x;});let r=Math.random()*ws.reduce((a,b)=>a+b,0);for(let i=0;i<list.length;i++){r-=ws[i];if(r<=0)return list[i];}return list[list.length-1];}
+function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0;}
+function pct(v){return Math.round(v*100)+'%';}
+const STOP=['to','a','an','the'];
+function normEn(s){return String(s||'').toLowerCase().replace(/[^a-z]+/g,' ').trim().split(' ').filter(w=>w&&!STOP.includes(w)).join(' ');}
+function enOK(ans,keys){const a=normEn(ans);if(!a)return false;const A=' '+a+' ';return keys.some(k=>{const n=normEn(k);return n&&A.includes(' '+n+' ');});}
+const TONES={};['aāáǎà','eēéěè','iīíǐì','oōóǒò','uūúǔù','vǖǘǚǜ'].forEach(g=>{for(let t=1;t<=4;t++)TONES[g[t]]=[g[0],t];});TONES['ü']=['v',0];
+function pyParse(s){s=String(s||'').toLowerCase().normalize('NFC').replace(/u:/g,'ü');let L='',T='';for(const c of s){if(TONES[c]){L+=TONES[c][0];if(TONES[c][1])T+=TONES[c][1];}else if(c>='a'&&c<='z')L+=c;else if(c>='1'&&c<='4')T+=c;}return {L:L.replace(/v/g,'u'),T};}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function gradePy(ans,w){const a=pyParse(ans);if(!a.L)return {score:0,msg:'left blank'};const os=[w.p].concat(w.alt||[]).map(pyParse);if(os.some(o=>o.L===a.L&&o.T===a.T))return {score:1,msg:''};if(os.some(o=>o.L===a.L))return {score:0.5,msg:a.T?'tones are off':'add the tones'};return {score:0,msg:'you wrote '+esc(ans)};}
+function cls(s){return s===1?'ok':s>0?'meh':'bad';}
+function sym(s){return s===1?'✓':s>0?'≈':'✗';}
+const $=s=>document.querySelector(s);
+const app=$('#app');
+function h(x){app.innerHTML=x;window.scrollTo(0,0);}
+function notice(m){const n=$('#notice');n.textContent=m;n.style.display='block';clearTimeout(notice.t);notice.t=setTimeout(()=>{n.style.display='none';},7000);}
+let live=[],timers=[],MS=null;
+function cancelAll(keepMock){live.forEach(q=>{try{q.cancel();}catch(e){}});live=[];timers.forEach(t=>clearTimeout(t));timers=[];document.onkeydown=null;if(!keepMock&&MS&&MS.int){clearInterval(MS.int);MS.int=null;}}
+function later(f,ms){timers.push(setTimeout(f,ms));}
+function onEnter(f){document.onkeydown=e=>{if(e.key==='Enter'&&!e.isComposing&&!(e.target&&e.target.tagName==='TEXTAREA')){e.preventDefault();f(e);}};}
+function shuffle(a){return a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);}
+function isPunct(c){return /[，。？！、,.?! ]/.test(c);}
+function okChar(r){return r.done!==false&&!r.shown&&!r.hint&&r.mistakes<=2;}
+function charLabel(r){if(r.done===false)return `<span class='bad'>not written</span>`;if(r.shown)return `<span class='bad'>shown</span>`;if(!r.mistakes&&!r.hint)return `<span class='ok'>perfect</span>`;return `<span class='${r.mistakes>2?'bad':'meh'}'>${r.mistakes} slip${r.mistakes===1?'':'s'}${r.hint?' + hint':''}</span>`;}
+function back(to){return `<div class='row' style='margin-bottom:12px'><button class='btn' onclick='${to||'home()'}'>← Back</button></div>`;}
+function makeWriter(el,ch,extra){
+const s=el.clientWidth||146;
+if(typeof HanziWriter==='undefined'){el.innerHTML=`<div class='big' style='margin:0;color:#ccc'>?</div>`;return {quiz(){},cancelQuiz(){},showOutline(){},showCharacter(){},hideCharacter(){},animateCharacter(o){if(o&&o.onComplete)o.onComplete();}};}
+return HanziWriter.create(el,ch,Object.assign({width:s,height:s,padding:Math.round(s*0.06),showCharacter:false,showOutline:false,strokeColor:'#1d1b18',outlineColor:'#e4ddd0',drawingColor:'#1d1b18',highlightColor:'#c8372d',drawingWidth:Math.max(4,Math.round(s/22)),strokeAnimationSpeed:1.3,delayBetweenStrokes:150,charDataLoader:(c,ok,fail)=>{if(window.HZ&&HZ[c])ok(HZ[c]);else fail(new Error('no stroke data for '+c));},onLoadCharDataError:()=>{el.textContent='Stroke data unavailable: '+ch;el.setAttribute('role','alert');notice('Couldn’t load the strokes for '+ch+'. Reload or report this character.');}},extra||{}));
+}
+function quizSeq(box,chars,o){
+o=o||{};box.innerHTML='';
+const small=chars.filter(c=>!isPunct(c)).length>4,tiles=[],writers=[],results=[];
+let idx=0,dead=false;
+chars.forEach(c=>{
+if(isPunct(c)){const p=document.createElement('div');p.className='punct';p.textContent=c;box.appendChild(p);return;}
+const d=document.createElement('div');d.className='tian'+(small?' small':'');box.appendChild(d);tiles.push(d);
+results.push({ch:c,mistakes:0,hint:false,shown:false,done:false});
+writers.push(makeWriter(d,c,{showOutline:!!o.outline}));
+});
+function start(i){
+if(dead)return;idx=i;tiles.forEach((t,j)=>t.classList.toggle('active',j===i));
+if(i>=writers.length){if(o.onDone)o.onDone(results);return;}
+writers[i].quiz({showHintAfterMisses:o.hints===undefined?3:o.hints,
+onMistake:st=>{results[i].mistakes=Math.max(results[i].mistakes,st.totalMistakes);const threshold=o.hints===undefined?3:o.hints;if(threshold!==false&&st.mistakesOnStroke>=threshold)results[i].hint=true;},
+onComplete:st=>{results[i].mistakes=Math.max(results[i].mistakes,st.totalMistakes);results[i].done=true;tiles[i].classList.add('done');setTimeout(()=>start(i+1),300);}});
+}
+start(0);
+return {results,
+left(){return results.filter(r=>!r.done).length;},
+showOutline(){const w=writers[idx];if(w&&!dead){results[idx].hint=true;w.showOutline();}},
+showMe(){const w=writers[idx];if(!w||dead)return;const i=idx;results[i].shown=true;w.cancelQuiz();w.animateCharacter({onComplete:()=>setTimeout(()=>start(i),500)});},
+giveUp(reveal){dead=true;writers.forEach((w,j)=>{try{w.cancelQuiz();}catch(e){}if(!results[j].done){results[j].shown=true;tiles[j].classList.add('miss');if(reveal)w.showCharacter();}});tiles.forEach(t=>t.classList.remove('active'));},
+cancel(){dead=true;writers.forEach(w=>{try{w.cancelQuiz();}catch(e){}});}};
+}
+/* ================= HOME ================= */
+let lastR=null,lastW=null,lastL=null;
+function quizIn(){const q=new Date(2026,10,20),n=new Date();n.setHours(0,0,0,0);const d=Math.round((q-n)/864e5);return d>1?`quiz Fri 11/20 · ${d} days to go`:d===1?'quiz tomorrow (Fri 11/20)':d===0?'quiz today, you’ve got this':'quiz was Fri 11/20';}
+function stepsDone(){return STEPS.filter((s,i)=>passed(i)).length;}
+function home(){
+cancelAll();
+const wm=avg(WRITE.map(w=>mastery(w.h,'write'))),rm=avg(ALL.map(w=>mastery(w.h,'recog'))),sm=avg(SENT.map((s,i)=>mastery('S'+i,'sent'))),best=lsGet(KEY+'-best');
+const stm=stepsDone()/STEPS.length,bm=avg(BUILD.filter(b=>!b.comp).map(b=>mastery(b.w,'build'))),om=avg(ORDER.map(o=>mastery(o.id,'order'))),tm=avg(TR.map(t=>mastery(t.id,'tr')));
+const bar=(label,v)=>`<label class='f'>${label}</label><div class='bar'><i style='width:${pct(v)}'></i></div>`;
+h(`<header><div><h1>Lesson 6 Vocab Quiz</h1><div class='sub'>第六课 约时间 Making Appointments · Dialogue 1 · ${quizIn()}</div></div>${best?`<span class='pill'>best mock ${best} / 12</span>`:''}</header>
+<div class='card'><div class='row between'><b>Your progress</b><span class='sub'>3 right in a row = learned</span></div>
+${bar(`Writing · all ${WRITE.length} words`,wm)}${bar(`Recognition · all ${ALL.length} words`,rm)}${bar(`Sentences · ${SENT.length}`,sm)}
+${bar(`Sentence structure · ${stepsDone()} of ${STEPS.length} steps`,stm)}${bar(`Word building · ${BUILD.filter(b=>!b.comp).length} words`,bm)}${bar(`Word order · ${ORDER.length} sentences`,om)}${bar(`Translation · ${TR.length} drills`,tm)}</div>
+<div class='sec'>How Chinese sentences work</div>
+<div class='grid'>
+<button class='mode new' onclick='structure()'><b>A · Sentence structure</b><span class='sub'>From zero, one small step at a time: the slot skeleton, then every Lesson 6 pattern, each with a quick check.</span></button>
+<button class='mode new' onclick='buildHome()'><b>B · Word building</b><span class='sub'>See what each character means, build words from tiles, and browse word families.</span></button>
+<button class='mode new' onclick='wordOrder()'><b>C · Word order</b><span class='sub'>${ORDER.length} scrambled sentences. Tap the tiles into order and find out which slot is off.</span></button>
+<button class='mode new' onclick='slotBuilder()'><b>D · Slot builder</b><span class='sub'>Pick a subject, time, place and verb, then watch your sentence snap into Chinese order.</span></button>
+<button class='mode new' onclick='translate()'><b>E · Translate</b><span class='sub'>English → Chinese drills from the slides, with a model answer and a pattern hint.</span></button>
+</div>
+<div class='sec'>Vocab quiz practice</div>
+<div class='grid'>
+<button class='mode' onclick='learn()'><b>1 · Learn strokes</b><span class='sub'>Watch the stroke order, trace it twice, then write it 3 times from memory. Five guided copies, graded.</span></button>
+<button class='mode' onclick='recog()'><b>2 · Recognition</b><span class='sub'>See the character, type the pinyin and English.</span></button>
+<button class='mode' onclick='writing()'><b>3 · Write it</b><span class='sub'>See the pinyin, draw the characters, get graded stroke by stroke.</span></button>
+<button class='mode' onclick='sentences()'><b>4 · Sentences</b><span class='sub'>${SENT.length} sentences from Dialogue 1 and the slides: draw them from pinyin, then translate.</span></button>
+<button class='mode' onclick='mock()'><b>5 · Mock quiz</b><span class='sub'>Practice estimate: 5 recognition, 5 writing, 1 sentence, with a 10-minute timer, scored out of 12.</span></button>
+<button class='mode' onclick='wordlist()'><b>Word list</b><span class='sub'>Every word on one page, with your streaks.</span></button>
+</div>
+<p class='sub' style='margin-top:16px'>Pinyin works with tone marks (bàngōngshì) or numbers (ban4gong1shi4). Words and sentences you miss come back more often. Progress saves on this device.</p>`);
+if(typeof HanziWriter==='undefined')notice('The drawing library didn’t load. Reload the page; the library is bundled locally.');
+}
+/* ================= STANDARD MODES ================= */
+function learn(w){
+cancelAll();
+if(!w){
+h(`${back()}<div class='card'><h2>Learn strokes</h2><div class='sub'>Pick a word, or let me pick your weakest one.</div>
+<div class='row' style='margin-top:14px'>${WRITE.map((x,i)=>`<button class='btn hz' onclick='learn(WRITE[${i}])'>${x.h}</button>`).join('')}</div>
+<div class='row' style='margin-top:16px'><button class='btn pri' onclick='learnWeak()'>Weakest word →</button></div></div>`);
+return;
+}
+lastL=w;
+h(`${back('learn()')}<div class='card'><span class='pill'>Watch the stroke order first</span>
+<div class='py'>${w.p}</div><div class='sub' style='text-align:center'>${w.d}</div>
+<div class='tians' id='anim'></div>
+<div class='row center'><button class='btn' id='replay'>Replay</button><button class='btn pri' id='go'>Start the 5 copies →</button></div></div>`);
+const box=$('#anim'),ws=[...w.h].map(c=>{const d=document.createElement('div');d.className='tian'+([...w.h].length>4?' small':'');box.appendChild(d);return makeWriter(d,c,{showOutline:true});});
+let tok=0;
+const play=async()=>{const my=++tok;ws.forEach(x=>x.hideCharacter());for(const x of ws){if(my!==tok)return;await new Promise(r=>x.animateCharacter({onComplete:r}));}};
+play();
+$('#replay').onclick=play;$('#go').onclick=()=>learnRound(w,1,[]);
+live.push({cancel(){tok++;}});
+}
+function learnWeak(){learn(pick(WRITE,'write',lastL));}
+function learnRound(w,n,log){
+cancelAll();
+const outline=n<=2;
+h(`${back('learn()')}<div class='card'><div class='row between'><span class='pill'>Copy ${n} of 5 · ${outline?'trace the grey outline':'from memory'}</span><div class='dots'>${[1,2,3,4,5].map(i=>`<span class='${i<n?'on':''}'></span>`).join('')}</div></div>
+<div class='py'>${w.p}</div><div class='sub' style='text-align:center'>${w.d}</div>
+<div class='tians' id='q'></div>
+<div class='row center'>${outline?'':`<button class='btn' id='hint'>Outline hint</button>`}<button class='btn' id='show'>Show me</button></div><div id='fb'></div></div>`);
+const q=quizSeq($('#q'),[...w.h],{outline,hints:outline?1:3,onDone:res=>{
+const m=res.reduce((a,r)=>a+r.mistakes,0);log.push({n,m,help:res.some(r=>r.shown||r.hint)});
+if(n<5){$('#fb').innerHTML=`<div class='fb ${m?'meh':'ok'}'>${m?m+' slip'+(m>1?'s':''):'Clean!'} · next copy…</div>`;later(()=>learnRound(w,n+1,log),900);}
+else later(()=>learnDone(w,log),600);
+}});
+live.push(q);
+if($('#hint'))$('#hint').onclick=()=>q.showOutline();
+$('#show').onclick=()=>q.showMe();
+}
+function learnDone(w,log){
+cancelAll();
+const ok=log.filter(l=>l.n>=3).every(l=>!l.help&&l.m<=[...w.h].length);
+rec(w.h,'write',ok);
+h(`${back('learn()')}<div class='card'><h2>${ok?'Locked in ✓':'Getting there'}</h2><div class='sub'>${ok?'All three memory copies were clean.':'The memory copies still had slips. Run it again, or move on and it’ll come back around.'}</div>
+<div class='table-scroll'><table class='fit' style='margin-top:12px'><tr><th>Copy</th><th>Mode</th><th>Slips</th></tr>${log.map(l=>`<tr><td>${l.n}</td><td>${l.n<=2?'trace':'memory'}</td><td class='${l.m?(l.m>2?'bad':'meh'):'ok'}'>${l.m}${l.help?' · used help':''}</td></tr>`).join('')}</table></div>
+<div class='row' style='margin-top:16px'><button class='btn' id='again'>Again</button><button class='btn pri' onclick='learnWeak()'>Next weakest →</button></div></div>`);
+$('#again').onclick=()=>learnRound(w,1,[]);
+}
+function recog(){
+cancelAll();
+const w=pick(ALL,'recog',lastR);lastR=w;
+h(`${back()}<div class='card'><div class='row between'><span class='pill'>Recognition</span><span class='sub'>all ${ALL.length} Lesson 6 words</span></div>
+<div class='big'>${w.h}</div>
+<label class='f'>Pinyin</label><input type='text' id='py' autocomplete='off' autocapitalize='off' spellcheck='false' placeholder='bàngōngshì or ban4gong1shi4'>
+<label class='f'>English</label><input type='text' id='en' autocomplete='off' spellcheck='false' placeholder='meaning'>
+<div class='row' style='margin-top:14px'><button class='btn pri' id='chk'>Check</button><button class='btn' id='idk'>I don’t know</button></div><div id='fb'></div></div>`);
+$('#py').focus();
+let done=false;
+const check=give=>{
+if(done){recog();return;}done=true;
+const pa=$('#py').value,ea=$('#en').value,p=give?{score:0,msg:''}:gradePy(pa,w),e=!give&&enOK(ea,w.e);
+rec(w.h,'recog',p.score===1&&e);
+$('#fb').innerHTML=`<div class='fb'><div><b class='${cls(p.score)}'>${sym(p.score)} Pinyin:</b> ${w.p} ${p.msg?`<span class='sub'>(${p.msg})</span>`:''}</div>
+<div><b class='${cls(e?1:0)}'>${sym(e?1:0)} English:</b> ${w.d}${!e&&!give&&ea.trim()?` <span class='sub'>(you: ${esc(ea)})</span><button class='btn mini' id='ovr'>I was right</button>`:''}</div>
+<div class='sub'>Enter for the next one.</div></div>`;
+const o=$('#ovr');if(o)o.onclick=()=>{fixLast(p.score===1);o.outerHTML=`<span class='ok'> counted ✓</span>`;};
+$('#chk').textContent='Next →';$('#idk').style.display='none';$('#chk').focus();
+};
+$('#chk').onclick=()=>check(false);$('#idk').onclick=()=>check(true);
+onEnter(()=>{if(!done&&document.activeElement===$('#py')){$('#en').focus();return;}check(false);});
+}
+function writing(){
+cancelAll();
+const w=pick(WRITE,'write',lastW);lastW=w;
+h(`${back()}<div class='card'><div class='row between'><span class='pill'>Write it</span><span id='eh'><button class='btn mini' id='peek'>Show English</button></span></div>
+<div class='py'>${w.p}</div>
+<div class='tians' id='q'></div>
+<div class='row center'><button class='btn' id='hint'>Outline hint</button><button class='btn' id='show'>Show me</button><button class='btn' id='skip'>Skip</button></div>
+<label class='f'>English meaning</label><input type='text' id='en' autocomplete='off' spellcheck='false' placeholder='type it, then Enter'>
+<div id='fb'></div></div>`);
+let peeked=false,res=null,graded=false;
+$('#peek').onclick=()=>{peeked=true;$('#eh').innerHTML=`<span class='sub'>${w.d}</span>`;};
+const q=quizSeq($('#q'),[...w.h],{hints:3,onDone:r=>{res=r;if($('#en').value.trim())grade();else{$('#fb').innerHTML=`<div class='fb'>Characters done. Now the English, then Enter.</div>`;$('#en').focus();}}});
+live.push(q);
+$('#hint').onclick=()=>q.showOutline();$('#show').onclick=()=>q.showMe();$('#skip').onclick=()=>{rec(w.h,'write',false);writing();};
+function grade(){
+if(graded){writing();return;}
+if(!res){$('#fb').innerHTML=`<div class='fb'>Finish drawing first (${q.left()} to go). Stuck? Hit Show me.</div>`;return;}
+graded=true;
+const ea=$('#en').value,e=!peeked&&enOK(ea,w.e),ok=res.every(okChar)&&res.every(r=>r.mistakes<=1);
+rec(w.h,'write',ok);rec(w.h,'en',e);
+$('#fb').innerHTML=`<div class='fb'><div><b class='${cls(ok?1:0)}'>${sym(ok?1:0)} Characters:</b> ${res.map(r=>`<span class='hz'>${r.ch}</span> ${charLabel(r)}`).join(' · ')}</div>
+<div><b class='${cls(e?1:0)}'>${sym(e?1:0)} English:</b> ${w.d}${peeked?` <span class='sub'>(peeked)</span>`:''}${!e&&!peeked&&ea.trim()?` <span class='sub'>(you: ${esc(ea)})</span><button class='btn mini' id='ovr'>I was right</button>`:''}</div>
+<div class='sub'>Enter for the next word.</div></div>`;
+const o=$('#ovr');if(o)o.onclick=()=>{fixLast(true);o.outerHTML=`<span class='ok'> counted ✓</span>`;};
+}
+onEnter(grade);
+}
+function sentences(i){
+cancelAll();
+const N=SENT.length;
+if(i===undefined){
+h(`${back()}<div class='card'><h2>Sentences</h2><div class='sub'>Sentences from Dialogue 1 and the slides. Write each one in characters from the pinyin, then translate it.</div>
+${SENT.map((s,j)=>`<button class='mode' style='width:100%;margin-top:10px' onclick='sentences(${j})'><b>Sentence ${j+1} <span class='ok'>${'●'.repeat(Math.round(mastery('S'+j,'sent')*3))}</span></b><span class='sub'>${s.p}</span></button>`).join('')}
+<div class='row' style='margin-top:14px'><button class='btn' id='peek'>Show characters + English</button></div><div id='pk'></div></div>`);
+$('#peek').onclick=()=>{$('#pk').innerHTML=`<div class='table-scroll'><table style='margin-top:10px'>${SENT.map(s=>`<tr><td class='hz'>${s.h}</td><td>${s.e}</td></tr>`).join('')}</table></div>`;};
+return;
+}
+const s=SENT[i];
+h(`${back('sentences()')}<div class='card'><span class='pill'>Sentence ${i+1} of ${N}</span>
+<div class='py s'>${s.p}</div>
+<div class='tians' id='q'></div>
+<div class='row center'><button class='btn' id='hint'>Outline hint</button><button class='btn' id='show'>Show me</button></div>
+<label class='f'>English translation</label><input type='text' id='en' autocomplete='off' placeholder='translate, then Enter'>
+<div class='row' style='margin-top:12px'><button class='btn pri' id='chk'>Check</button></div><div id='fb'></div></div>`);
+let res=null,checked=false;
+const q=quizSeq($('#q'),[...s.h],{hints:3,onDone:r=>{res=r;$('#en').focus();$('#fb').innerHTML=`<div class='fb'>Characters done. Now translate it.</div>`;}});
+live.push(q);
+$('#hint').onclick=()=>q.showOutline();$('#show').onclick=()=>q.showMe();
+const check=()=>{
+if(checked)return;
+if(!res){$('#fb').innerHTML=`<div class='fb'>Finish the characters first (${q.left()} to go).</div>`;return;}
+checked=true;
+const good=res.filter(okChar).length,weak=[...new Set(res.filter(r=>!okChar(r)).map(r=>r.ch))];
+$('#fb').innerHTML=`<div class='fb'><div><b class='${cls(good===res.length?1:good/res.length>0.7?0.5:0)}'>Characters: ${good}/${res.length} clean</b>${weak.length?` · practice <span class='hz'>${weak.join(' ')}</span>`:''}</div>
+<div><b>Model translation:</b> ${s.e}</div><div><b>Yours:</b> ${esc($('#en').value)||`<span class='sub'>(blank)</span>`}</div>
+<div class='row' style='margin-top:8px' id='sg'><button class='btn' id='y'>My translation matches</button><button class='btn' id='n'>I missed something</button></div></div>`;
+const fin=t=>{rec('S'+i,'sent',t&&good===res.length);$('#sg').innerHTML=`<button class='btn pri' id='nx'>${i<N-1?'Next sentence →':'Back to sentences'}</button><button class='btn' id='rt'>Retry this one</button>`;$('#nx').onclick=()=>i<N-1?sentences(i+1):sentences();$('#rt').onclick=()=>sentences(i);};
+$('#y').onclick=()=>fin(true);$('#n').onclick=()=>fin(false);
+};
+$('#chk').onclick=check;onEnter(check);
+}
+function wordlist(){
+cancelAll();
+const dots=v=>{const k=Math.round(v*3);return `<span class='ok'>${'●'.repeat(k)}</span><span class='sub'>${'○'.repeat(3-k)}</span>`;};
+h(`${back()}<div class='card'><h2>All Lesson 6 words</h2><div class='sub'>The slides give no separate writing list for this quiz, so every word here is practiced for both reading and writing. Dots = your current streak.</div>
+<div class='table-scroll'><table style='margin-top:10px'><tr><th>Word</th><th>Pinyin</th><th>English</th><th>Read</th><th>Write</th></tr>
+${ALL.map(w=>`<tr><td><span class='hz'>${w.h}</span></td><td>${w.p}</td><td>${w.d}</td><td>${dots(mastery(w.h,'recog'))}</td><td>${dots(mastery(w.h,'write'))}</td></tr>`).join('')}</table></div>
+<p class='sub'>Words come from the Lesson 6 Dialogue 1 vocabulary taught 11/10–11/16 (slides W11 Tue/Wed/Thu and W12 Mon). Dialogue 2 words such as 见面 aren’t taught yet, so they’re left out. Optional 儿, neutral-tone 0/5 and listed alternatives (wéi/wèi, nǎ/něi) are accepted.</p>
+<div class='row'><button class='btn' id='reset'>Reset my progress</button></div></div>`);
+$('#reset').onclick=()=>{if(confirm('Clear all saved Lesson 6 progress?')){M={};save();lsSet(KEY+'-best','');wordlist();}};
+}
+function mock(){
+cancelAll();
+const wr=shuffle(WRITE).slice(0,5),rc=shuffle(ALL.filter(w=>!wr.includes(w))).slice(0,5),s=SENT[Math.floor(Math.random()*SENT.length)];
+MS={items:[...rc.map(w=>({type:'recog',w})),...wr.map(w=>({type:'write',w})),{type:'sent',s}],i:0,end:Date.now()+600000};
+MS.int=setInterval(mockTick,500);
+mockItem();
+}
+function fmt(ms){const t=Math.max(0,Math.ceil(ms/1000));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0');}
+function mockTick(){if(!MS||MS.reviewed)return;const left=MS.end-Date.now(),el=$('#timer');if(el){el.textContent=fmt(left);el.classList.toggle('low',left<120000);}if(left<=0)mockReview(true);}
+function mockItem(){
+cancelAll(true);
+const it=MS.items[MS.i],n=MS.i+1,N=MS.items.length;
+const part=it.type==='recog'?'Part 1 · Recognition':it.type==='write'?'Part 2 · Writing':'Part 3 · Sentence';
+let body='';
+if(it.type==='recog')body=`<div class='big'>${it.w.h}</div><label class='f'>Pinyin</label><input type='text' id='py' autocomplete='off' autocapitalize='off' spellcheck='false'><label class='f'>English</label><input type='text' id='en' autocomplete='off' spellcheck='false'>`;
+else body=`<div class='py${it.s?' s':''}'>${it.w?it.w.p:it.s.p}</div><div class='tians' id='q'></div><div class='row center'><button class='btn' id='gu'>Can’t remember, move on</button></div><label class='f'>${it.s?'English translation':'English'}</label><input type='text' id='en' autocomplete='off' spellcheck='false'>`;
+h(`<div class='row between' style='margin-bottom:12px'><button class='btn' id='quit'>✕ Quit</button><span class='timer' id='timer'>${fmt(MS.end-Date.now())}</span></div>
+<div class='card'><div class='row between'><span class='pill'>${part}</span><span class='sub'>${n} / ${N}</span></div>${body}
+<div class='row' style='margin-top:16px;justify-content:flex-end'><button class='btn pri' id='next'>${n===N?'Finish':'Next →'}</button></div></div>`);
+$('#quit').onclick=()=>{if(confirm('Quit the mock quiz?'))home();};
+if(it.type==='recog')$('#py').focus();
+else{
+const q=quizSeq($('#q'),[...(it.w?it.w.h:it.s.h)],{hints:false,onDone:r=>{it.charRes=r;$('#en').focus();}});
+live.push(q);it.q=q;
+$('#gu').onclick=()=>{q.giveUp(false);it.charRes=q.results;$('#gu').disabled=true;$('#en').focus();};
+}
+$('#next').onclick=mockNext;
+onEnter(()=>{if(document.activeElement===$('#py')){$('#en').focus();return;}mockNext();});
+}
+function mockNext(){
+const it=MS.items[MS.i];
+if(it.q&&!it.charRes&&!confirm('The characters aren’t finished. Move on anyway?'))return;
+mockSave();MS.i++;
+if(MS.i>=MS.items.length)mockReview(false);else mockItem();
+}
+function mockSave(){
+const it=MS.items[MS.i];if(!it||it.saved)return;it.saved=true;
+const py=$('#py'),en=$('#en');it.pyAns=py?py.value:'';it.enAns=en?en.value:'';
+if(it.q&&!it.charRes){it.q.giveUp(false);it.charRes=it.q.results;}
+}
+function mockReview(timeUp){
+if(!MS||MS.reviewed)return;
+mockSave();MS.reviewed=true;MS.timeUp=timeUp;MS.used=600000-Math.max(0,MS.end-Date.now());
+cancelAll();
+MS.items.forEach(scoreItem);
+MS.progressBefore=JSON.parse(JSON.stringify(M));
+applyMockProgress();
+renderReview();
+}
+function scoreItem(it){
+if(it.type==='recog'){it.py=gradePy(it.pyAns,it.w);if(it.enOk===undefined)it.enOk=enOK(it.enAns,it.w.e);it.max=1;it.pts=0.5*it.py.score+(it.enOk?0.5:0);return;}
+const chars=[...(it.w?it.w.h:it.s.h)].filter(c=>!isPunct(c));
+if(!it.charRes)it.charRes=chars.map(ch=>({ch,mistakes:0,shown:true,done:false,hint:false}));
+it.charFrac=it.charRes.filter(okChar).length/it.charRes.length;
+if(it.type==='write'){if(it.enOk===undefined)it.enOk=enOK(it.enAns,it.w.e);it.max=1;it.pts=0.5*it.charFrac+(it.enOk?0.5:0);}
+else{if(it.enOk===undefined)it.enOk=false;it.max=2;it.pts=it.charFrac+(it.enOk?1:0);}
+}
+function applyMockProgress(){M=JSON.parse(JSON.stringify(MS.progressBefore));MS.items.forEach(it=>{if(it.type==='recog')rec(it.w.h,'recog',it.pts===1);else if(it.type==='write'){rec(it.w.h,'write',it.charFrac===1);rec(it.w.h,'en',it.enOk);}else rec('S'+SENT.indexOf(it.s),'sent',it.charFrac===1&&it.enOk);});}
+function mockToggle(i){const it=MS.items[i];it.enOk=!it.enOk;scoreItem(it);applyMockProgress();renderReview();}
+function r2(x){return Math.round(x*100)/100;}
+function renderReview(){
+const tot=r2(MS.items.reduce((a,it)=>a+it.pts,0)),max=MS.items.reduce((a,it)=>a+it.max,0);
+const best=parseFloat(lsGet(KEY+'-best')||'0');if(tot>best)lsSet(KEY+'-best',String(tot));
+const you=s=>s&&s.trim()?esc(s):`<span class='sub'>(blank)</span>`;
+const tg=(it,i,label)=>(it.enAns||'').trim()?`<button class='btn mini' onclick='mockToggle(${i})'>${it.enOk?'mark wrong':label}</button>`:'';
+const rows=MS.items.map((it,i)=>{
+if(it.type==='recog')return `<tr><td class='hz'>${it.w.h}</td><td>${you(it.pyAns)} <span class='${cls(it.py.score)}'>${sym(it.py.score)}</span><br>${you(it.enAns)} <span class='${cls(it.enOk?1:0)}'>${sym(it.enOk?1:0)}</span>${tg(it,i,'I was right')}</td><td>${it.w.p}<br>${it.w.d}</td><td>${r2(it.pts)}/1</td></tr>`;
+const ch=it.charRes.map(r=>`<span class='hz'>${r.ch}</span> ${charLabel(r)}`).join(' · ');
+if(it.type==='write')return `<tr><td>${it.w.p}</td><td>${ch}<br>${you(it.enAns)} <span class='${cls(it.enOk?1:0)}'>${sym(it.enOk?1:0)}</span>${tg(it,i,'I was right')}</td><td><span class='hz'>${it.w.h}</span><br>${it.w.d}</td><td>${r2(it.pts)}/1</td></tr>`;
+const good=it.charRes.filter(okChar).length,weak=[...new Set(it.charRes.filter(r=>!okChar(r)).map(r=>r.ch))];
+return `<tr><td class='sub'>${it.s.p}</td><td>${good}/${it.charRes.length} characters clean${weak.length?` · practice <span class='hz'>${weak.join(' ')}</span>`:''}<br>${you(it.enAns)} <span class='${cls(it.enOk?1:0)}'>${sym(it.enOk?1:0)}</span>${tg(it,i,'My translation was right')}</td><td><span class='hz'>${it.s.h}</span><br>${it.s.e}</td><td>${r2(it.pts)}/2</td></tr>`;
+});
+const pc=tot/max,msg=pc>=0.96?'Strong practice result. Review again later to keep it fresh.':pc>=0.85?'Close. Drill the misses below, then go again.':pc>=0.6?'Getting there. Do Learn strokes on the misses, then try again.':'Start with Learn strokes and Recognition, then come back.';
+h(`<div class='card'><div class='sub' style='text-align:center'>${MS.timeUp?'Time’s up!':'Mock quiz done'} · ${fmt(MS.used)} used</div><div class='score'>${tot}<span class='sub' style='font-size:24px'> / ${max}</span></div><div style='text-align:center;margin-top:8px'>${msg}</div>
+<div class='row center' style='margin-top:14px'><button class='btn pri' onclick='mock()'>New mock quiz</button><button class='btn' onclick='home()'>Home</button></div></div>
+<div class='card'><h2>Review</h2><div class='sub'>Practice estimate, not official scoring: 1 per word (half pinyin or characters, half English), 2 for the sentence. The Lesson 5 vocab quiz on the slides was 10 minutes; its exact format isn’t on the slides. For the sentence, compare your translation and tap if it matches.</div>
+<div class='table-scroll'><table style='margin-top:10px'><tr><th>Given</th><th>You</th><th>Answer</th><th>Pts</th></tr>${rows.join('')}</table></div></div>`);
+}
+/* ================= SLOT HELPERS ================= */
+function parseC(str,sep){return str.split(sep||' ').map(x=>{const k=x.lastIndexOf('/');return [x.slice(0,k).replace(/_/g,' '),x.slice(k+1)];});}
+function chipH(x,s,en,sm){if(s==='X')return `<span class='chip x'><span class='c'>${x}</span><span class='l'>·</span></span>`;return `<span class='chip s-${s}${en?' en':''}${sm?' sm':''}'><span class='c'>${x}</span>${sm?'':`<span class='l'>${SL[s]}</span>`}</span>`;}
+function chipsHTML(arr,en){return `<div class='chips'>${arr.map(([x,s])=>chipH(x,s,en)).join('')}</div>`;}
+function legend(keys){return `<div class='legend'>${(keys||['S','T','H','P','V','O','D','E']).map(k=>`<span class='chip s-${k}'><span class='c'></span><span class='l'>${SL[k]}</span></span>`).join('')}</div>`;}
+function exHTML(x){return `<div class='ex'><div class='sub'>Example</div>${chipsHTML(parseC(x.c))}<div class='expy'>${x.p}</div><div>${x.e}</div>${x.en?`<div class='sub' style='margin-top:10px'>English order, for comparison:</div>${chipsHTML(parseC(x.en,'|'),true)}`:''}</div>`;}
+/* ================= WORD ORDER ENGINE ================= */
+function tilesOf(it){if(!it._t)it._t=parseC(it.t);return it._t;}
+function orderVariants(it){
+if(it._v)return it._v;
+const t=tilesOf(it),n=t.length,base=[...Array(n).keys()];
+const alts=(it.alt||[]).map(a=>{const used=new Set();return a.split(' ').map(x=>{const k=t.findIndex((y,j)=>y[0]===x&&!used.has(j));used.add(k);return k;});});
+const runs=[];for(let i=0;i<n;){let j=i;while(j<n&&t[j][1]===t[i][1])j++;runs.push([i,j]);i=j;}
+let vs=[base,...alts];
+for(let r=0;r+1<runs.length;r++){
+const A=runs[r],B=runs[r+1],a=t[A[0]][1],b=t[B[0]][1];
+if(!((a==='S'&&b==='T')||(a==='T'&&b==='S')))continue;
+const blk=[];for(let k=A[0];k<B[1];k++)blk.push(k);const na=A[1]-A[0],add=[];
+vs.forEach(v=>{const f=v.indexOf(A[0]);if(f<0||!blk.every((k,q)=>v[f+q]===k))return;add.push([...v.slice(0,f),...blk.slice(na),...blk.slice(0,na),...v.slice(f+blk.length)]);});
+vs=vs.concat(add);
+}
+it._v=vs;it._acc=new Set(vs.map(v=>v.map(k=>t[k][0]).join('')));return vs;
+}
+function orderAccepts(it,str){orderVariants(it);return it._acc.has(str);}
+function lcs(a,b){
+const n=a.length,m=b.length,L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)L[i][j]=a[i]===b[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+const ka=new Array(n).fill(false),kb=new Array(m).fill(false);let i=0,j=0;
+while(i<n&&j<m){if(a[i]===b[j]){ka[i]=kb[j]=true;i++;j++;}else if(L[i+1][j]>=L[i][j+1])i++;else j++;}
+return {len:L[0][0],ka,kb};
+}
+/* Explain which slot is out of place, comparing her order with the closest correct order. */
+function orderHint(it,placed){
+const t=tilesOf(it),her=placed.map(k=>t[k][0]);
+let best=null;
+orderVariants(it).forEach(v=>{const tg=v.map(k=>t[k][0]),r=lcs(her,tg);if(!best||r.len>best.len||(r.len===best.len&&tg[0]===her[0]&&best.tg[0]!==her[0]))best=Object.assign(r,{v,tg});});
+const bad=best.ka.map((k,j)=>k?-1:j).filter(j=>j>=0);
+if(!bad.length)return {msg:`<b class='bad'>Not quite.</b> Check the order again.`,slot:null};
+const more=bad.length>1?` <span class='sub'>(${bad.length} tiles need to move.)</span>`:'';
+/* 1) Slot rules first: time/place/helper/subject before their verb, object/how-long after it. */
+const occ=a=>{const c={};return a.map(x=>x+'#'+(c[x]=(c[x]||0)+1));};
+const Tg=occ(best.tg),hpos={};occ(her).forEach((k,i)=>hpos[k]=i);
+const sl=q=>t[best.v[q]][1],tl=q=>t[best.v[q]],cp=q=>chipH(tl(q)[0],sl(q),false,true);
+const out=(q,txt)=>({slot:sl(q),msg:`<div><b class='bad'>Not quite.</b> ${txt}${more}</div><div class='sub' style='margin-top:6px'>${SLTIP[sl(q)]}</div>`});
+for(const s of ['T','P','H','D','O','S','C']){for(let q=0;q<Tg.length;q++){if(sl(q)!==s)continue;
+if(s==='D'||s==='O'){let v=q-1;while(v>=0&&sl(v)!=='V')v--;if(v>=0&&hpos[Tg[v]]>hpos[Tg[q]])return out(q,`${cp(q)} (the <b>${SLN[s]}</b>) is in front of the verb ${cp(v)}. It belongs after the verb${q-1>v?`, right after ${cp(q-1)}`:''}.`);}
+else{let v=q+1;while(v<Tg.length&&sl(v)!=='V')v++;if(v<Tg.length&&hpos[Tg[v]]<hpos[Tg[q]])return out(q,`${cp(q)} (the <b>${SLN[s]}</b>) comes after the verb ${cp(v)}. Move it in front of the verb${q+1<v?`, right before ${cp(q+1)}`:''}.`);}
+}}
+const lastQ=Tg.length-1;if(['E','C'].includes(sl(lastQ))&&hpos[Tg[lastQ]]!==her.length-1)return out(lastQ,`${cp(lastQ)} goes at the very end of the sentence.`);
+for(let q=1;q<lastQ;q++)if(tl(q)[0]==='了'&&sl(q-1)==='V'&&hpos[Tg[q]]!==hpos[Tg[q-1]]+1)return out(q,`${cp(q)} goes right after the verb ${cp(q-1)}.`);
+/* 2) Otherwise point at the first tile outside the longest correct run. */
+const j=bad[0],tile=t[placed[j]],[x,s]=tile;
+let pos=best.tg.findIndex((y,q)=>y===x&&!best.kb[q]);if(pos<0)pos=best.tg.indexOf(x);
+const nx=pos+1<best.v.length?t[best.v[pos+1]]:null,pv=pos>0?t[best.v[pos-1]]:null;
+const where=nx?`right before ${chipH(nx[0],nx[1],false,true)}`:`at the end, after ${chipH(pv[0],pv[1],false,true)}`;
+const same=(nx&&nx[1]===s)||(!nx&&pv&&pv[1]===s);
+const what=s==='E'||s==='C'||s==='X'?`${chipH(x,s,false,true)}`:`${chipH(x,s,false,true)} (the <b>${SLN[s]}</b>)`;
+return {slot:s,msg:`<div><b class='bad'>Not quite.</b> ${what} is out of place. It should go ${where}.${more}</div><div class='sub' style='margin-top:6px'>${same?(SLIN[s]||`Inside the ${SLN[s]}, keep the words in their natural order.`):SLTIP[s]}</div>`};
+}
+function orderWidget(box,it,opts){
+opts=opts||{};
+const t=tilesOf(it);orderVariants(it);
+const n=t.length;let bank=shuffle([...Array(n).keys()]);
+if(n>1){let guard=0;while(orderAccepts(it,bank.map(k=>t[k][0]).join(''))&&guard++<20)bank=shuffle(bank);}
+let placed=[],tries=0,solved=false,shown=false,colours=false,fb='';
+function tile(k,where){return `<button class='tile${colours||solved||shown?' s-'+t[k][1]:''}' data-${where}='${k}'>${t[k][0]}</button>`;}
+function render(){
+const finished=solved||shown;
+box.innerHTML=`<div class='prompt'>${it.en}</div>
+<div class='ans' aria-label='Your sentence'>${placed.length?placed.map(k=>tile(k,'a')).join(''):`<span class='sub'>Tap the tiles in order…</span>`}</div>
+${finished?'':`<div class='bank'>${bank.filter(k=>!placed.includes(k)).map(k=>tile(k,'b')).join('')}</div>`}
+${colours&&!finished?legend([...new Set(t.map(x=>x[1]))]):''}
+<div class='row' style='margin-top:12px'>${finished?'':`<button class='btn pri' data-act='check' ${placed.length<n?'disabled':''}>Check</button><button class='btn' data-act='clear' ${placed.length?'':'disabled'}>Clear</button><button class='btn' data-act='col'>${colours?'Hide':'Show'} slot colours</button>${tries?`<button class='btn' data-act='show'>Show answer</button>`:''}`}</div>
+<div class='owfb'>${fb}</div>`;
+}
+function finish(){
+const her=placed.map(k=>t[k][0]).join(''),canon=t.map(x=>x[0]).join('');
+fb=`<div class='fb'>${solved?`<b class='ok'>✓ ${tries?'Got it.':'Correct!'}</b>`:`<b class='meh'>Here’s the answer.</b>`}
+${chipsHTML(placed.map(k=>t[k]))}
+<div class='hz' style='font-size:24px'>${it.h}</div><div class='expy'>${it.p}</div><div>${it.en}</div>
+${solved&&her!==canon?`<div class='sub' style='margin-top:6px'>Your order is correct too. The slide-style version is shown above.</div>`:''}</div>`;
+render();
+if(opts.onResult)opts.onResult(solved&&tries===0,solved);
+}
+box.onclick=e=>{
+const b=e.target.closest('button');if(!b||!box.contains(b)||solved||shown)return;
+if(b.dataset.b!==undefined){placed.push(+b.dataset.b);fb='';render();return;}
+if(b.dataset.a!==undefined){placed.splice(placed.indexOf(+b.dataset.a),1);fb='';render();return;}
+const act=b.dataset.act;
+if(act==='clear'){placed=[];fb='';render();}
+else if(act==='col'){colours=!colours;render();}
+else if(act==='show'){shown=true;placed=orderVariants(it)[0].slice();finish();}
+else if(act==='check'){
+if(orderAccepts(it,placed.map(k=>t[k][0]).join(''))){solved=true;finish();}
+else{tries++;const r=orderHint(it,placed);fb=`<div class='fb'>${r.msg}</div>`;render();}
+}
+};
+render();
+return {get placed(){return placed;},set placed(v){placed=v;render();},check(){const c=box.querySelector('[data-act=check]');if(c)c.click();}};
+}
+/* ================= A · SENTENCE STRUCTURE ================= */
+function passed(i){const m=M['st'+i+'|step'];return !!(m&&m.r>0);}
+function unitSteps(ui){return STEPS.map((s,i)=>s.u===ui?i:-1).filter(i=>i>=0);}
+function structure(){
+cancelAll();
+const next=STEPS.findIndex((s,i)=>!passed(i));
+h(`${back()}<div class='card'><h2>Sentence structure</h2><div class='sub'>Start from zero. Each step is one idea, an example from the lesson, then a quick check. Every Chinese sentence here is built from these coloured slots:</div>
+${legend()}
+<div class='row' style='margin-top:14px'><button class='btn pri' onclick='step(${next<0?0:next})'>${next<0?'All done · review from step 1':next===0?'Start step 1 →':'Continue with step '+(next+1)+' →'}</button></div></div>
+${UNITS.map((u,ui)=>{const idx=unitSteps(ui),d=idx.filter(passed).length;return `<button class='mode' style='width:100%;margin-bottom:10px' onclick='step(${idx[0]})'><b>${u} <span class='${d===idx.length?'ok':'sub'}' style='font-weight:400'>${d===idx.length?'✓':d+'/'+idx.length}</span></b><span class='sub'>${idx.map(i=>STEPS[i].t).join(' · ')}</span></button>`;}).join('')}`);
+}
+function step(i){
+cancelAll();
+const s=STEPS[i],idx=unitSteps(s.u),k=idx.indexOf(i);
+h(`${back('structure()')}<div class='card'><div class='row between'><span class='pill'>${UNITS[s.u]}</span><span class='sub'>Step ${k+1} of ${idx.length} · ${i+1}/${STEPS.length} overall</span></div>
+<h2 style='margin-top:12px'>${s.t}</h2><div class='idea'>${s.idea}</div>
+${s.ex.map(exHTML).join('')}
+<div class='qc'><b>Quick check</b><div id='qc'></div></div>
+<div id='nav' class='row' style='margin-top:14px'></div></div>`);
+const nav=()=>{const last=i===STEPS.length-1,endUnit=k===idx.length-1;
+$('#nav').innerHTML=`${last?`<button class='btn pri' onclick='structure()'>Finish · all units</button>`:`<button class='btn pri' onclick='step(${i+1})'>${endUnit?'Next unit →':'Next step →'}</button>`}<button class='btn' onclick='step(${i})'>Try this check again</button>`;};
+const q=s.q;
+if(q.k==='mc'){
+const order=shuffle(q.o.map((o,j)=>j));
+$('#qc').innerHTML=`<div class='prompt'>${q.q}</div>${order.map(j=>`<button class='btn opt' data-o='${j}'>${q.o[j]}</button>`).join('')}<div id='qfb'></div>`;
+let answered=false;
+$('#qc').onclick=e=>{const b=e.target.closest('[data-o]');if(!b||answered)return;answered=true;const j=+b.dataset.o,ok=j===q.a;
+rec('st'+i,'step',ok);
+$('#qc').querySelectorAll('[data-o]').forEach(x=>{const y=+x.dataset.o;if(y===q.a)x.classList.add('right');else if(y===j)x.classList.add('wrong');x.disabled=true;});
+$('#qfb').innerHTML=`<div class='fb'><b class='${ok?'ok':'bad'}'>${ok?'✓ Right.':'✗ Not that one.'}</b> ${q.why}</div>`;nav();};
+}else{
+const it=ORDER.find(o=>o.id===q.id);
+orderWidget($('#qc'),it,{onResult:(first,solved)=>{rec('st'+i,'step',solved);rec(it.id,'order',first);nav();}});
+}
+}
+/* ================= B · WORD BUILDING ================= */
+let lastB=null;
+function buildHome(){
+cancelAll();
+h(`${back()}<div class='card'><h2>Word building</h2><div class='sub'>Most Lesson 6 words are two or three characters, and each character has its own meaning. Knowing the pieces makes the words easier to remember and to write.</div>
+<div class='grid' style='margin-top:14px'>
+<button class='mode new' onclick='buildLearn(0)'><b>1 · How words are made</b><span class='sub'>${BUILD.length} words, piece by piece.</span></button>
+<button class='mode new' onclick='buildQuiz()'><b>2 · Build the word</b><span class='sub'>Read the English and tap the character tiles to build it.</span></button>
+<button class='mode new' onclick='families()'><b>3 · Word families</b><span class='sub'>Words that share a character, grouped together.</span></button>
+</div></div>`);
+}
+function partsHTML(b){return `<div class='parts'>${b.parts.map((p,j)=>`${j?`<span class='op'>+</span>`:''}<div class='part'><div class='c'>${p[0]}</div><div class='expy'>${p[1]}</div><div class='m'>${p[2]}</div></div>`).join('')}<span class='op'>=</span><div class='part' style='border-color:var(--ink)'><div class='c'>${b.w}</div><div class='expy'>${b.p}</div><div class='m'>${b.e}</div></div></div>`;}
+function buildLearn(i){
+cancelAll();
+const b=BUILD[i];
+h(`${back('buildHome()')}<div class='card'><div class='row between'><span class='pill'>How words are made</span><span class='sub'>${i+1} / ${BUILD.length}</span></div>
+<div class='big' style='font-size:64px'>${b.w}</div><div class='py s'>${b.p}</div><div class='sub' style='text-align:center'>${b.e}</div>
+${partsHTML(b)}
+<div class='fb'>${b.how}</div>
+<div class='row between' style='margin-top:14px'><button class='btn' ${i?'':'disabled'} onclick='buildLearn(${i-1})'>← Previous</button>${i<BUILD.length-1?`<button class='btn pri' onclick='buildLearn(${i+1})'>Next word →</button>`:`<button class='btn pri' onclick='buildQuiz()'>Try building them →</button>`}</div></div>`);
+}
+function buildQuiz(){
+cancelAll();
+const list=BUILD.filter(b=>!b.comp),b=pick(list,'build',lastB,x=>x.w);lastB=b;
+const need=[...b.w],pool=[...new Set(list.flatMap(x=>[...x.w]))].filter(c=>!need.includes(c));
+const tiles=shuffle([...need,...shuffle(pool).slice(0,Math.max(3,6-need.length))]);
+let slots=need.map(()=>null),done=false;
+h(`${back('buildHome()')}<div class='card'><div class='row between'><span class='pill'>Build the word</span><span class='sub'>${need.length} characters</span></div>
+<div class='prompt' style='text-align:center'>${b.e}</div>
+<div class='slots' id='slots'></div><div class='bank' id='bank'></div>
+<div class='row center' style='margin-top:14px'><button class='btn pri' id='chk' disabled>Check</button><button class='btn' id='clr'>Clear</button><button class='btn' id='hint'>Hint: pinyin</button></div><div id='fb'></div></div>`);
+const used=()=>slots.filter(x=>x!==null);
+function render(){
+$('#slots').innerHTML=slots.map((x,j)=>`<button class='slotbox${x!==null?' f':''}' data-s='${j}' aria-label='slot ${j+1}'>${x!==null?tiles[x]:''}</button>`).join('');
+$('#bank').innerHTML=done?'':tiles.map((c,k)=>used().includes(k)?'':`<button class='tile' data-t='${k}'>${c}</button>`).join('');
+$('#chk').disabled=done||used().length<need.length;
+}
+$('#slots').onclick=e=>{const s=e.target.closest('[data-s]');if(!s||done)return;slots[+s.dataset.s]=null;render();};
+$('#bank').onclick=e=>{const tt=e.target.closest('[data-t]');if(!tt||done)return;const j=slots.indexOf(null);if(j<0)return;slots[j]=+tt.dataset.t;render();};
+$('#clr').onclick=()=>{if(done)return;slots=need.map(()=>null);render();};
+$('#hint').onclick=()=>{$('#hint').outerHTML=`<span class='sub'>${b.p}</span>`;};
+$('#chk').onclick=()=>{
+if(done){buildQuiz();return;}
+const got=slots.map(x=>tiles[x]).join(''),ok=got===b.w;done=true;rec(b.w,'build',ok);
+render();
+$('#fb').innerHTML=`<div class='fb'><b class='${ok?'ok':'bad'}'>${ok?'✓ Right!':'✗ You built '+got+'.'}</b> ${b.w} · ${b.p}${partsHTML(b)}<div>${b.how}</div></div>`;
+$('#chk').disabled=false;$('#chk').textContent='Next word →';
+};
+render();
+onEnter(()=>{if(!$('#chk').disabled)$('#chk').click();});
+}
+function families(){
+cancelAll();
+h(`${back('buildHome()')}<div class='card'><h2>Word families</h2><div class='sub'>Words that share a character usually share part of their meaning.</div></div>
+${FAM.map(f=>`<div class='card'><h2>${f.k}</h2><table class='fit fam'>${f.items.map(x=>`<tr><td class='hz'>${x[0]}</td><td>${x[1]}<br><span class='sub'>${x[2]}</span></td></tr>`).join('')}</table>${f.note?`<div class='sub' style='margin-top:8px'>${f.note}</div>`:''}</div>`).join('')}`);
+}
+/* ================= C · WORD ORDER ================= */
+let opat='all',lastO=null;
+function wordOrder(){
+cancelAll();
+const list=opat==='all'?ORDER:ORDER.filter(o=>o.pat===opat),it=pick(list,'order',lastO,o=>o.id);lastO=it;
+const cnt=k=>ORDER.filter(o=>o.pat===k).length;
+h(`${back()}<div class='card'><div class='row between'><span class='pill'>Word order · ${PATS[it.pat]}</span><span class='sub'>${pct(avg(list.map(o=>mastery(o.id,'order'))))} learned</span></div>
+<label class='f' for='pat'>Practice</label><select id='pat'><option value='all'>All patterns (${ORDER.length} sentences)</option>${Object.keys(PATS).map(k=>`<option value='${k}' ${opat===k?'selected':''}>${PATS[k]} (${cnt(k)})</option>`).join('')}</select>
+<div id='ow'></div>
+<div class='row' style='margin-top:14px;justify-content:flex-end'><button class='btn' id='nx'>Next sentence →</button></div></div>
+<p class='sub'>Time can go before or after the subject, and both orders are accepted. When something’s off, you’ll see which slot to move.</p>`);
+const w=orderWidget($('#ow'),it,{onResult:ok=>{rec(it.id,'order',ok);$('#nx').classList.add('pri');}});
+$('#pat').onchange=e=>{opat=e.target.value;wordOrder();};
+$('#nx').onclick=wordOrder;
+onEnter(()=>{const c=$('#ow [data-act=check]');if(c&&!c.disabled)c.click();else if($('#nx').classList.contains('pri'))wordOrder();});
+}
+/* ================= D · SLOT BUILDER ================= */
+const sbs={S:0,T:2,H:1,P:1,V:5};let sbNote='';
+function slotBuilder(){
+cancelAll();
+h(`${back()}<div class='card'><h2>Slot builder</h2><div class='sub'>Pick one thing for each slot. Your sentence is put together in Chinese order, with the English order underneath for comparison.</div><div id='sb'></div></div>`);
+sbRender();
+}
+function sbPick(slot,j){
+sbNote='';sbs[slot]=j;
+const S=SB.S[sbs.S],H=SB.H[sbs.H],P=SB.P[sbs.P],V=SB.V[sbs.V];
+if(slot==='H'&&H.k==='bie'&&S.z!=='你'){sbs.S=1;sbNote='别 tells someone not to do something, so the subject switched to 你.';}
+if(slot==='S'&&H.k==='bie'&&S.z!=='你'){sbs.H=0;sbNote='别 only works when you’re telling “you” not to do something, so the helper was cleared.';}
+if(slot==='P'&&P.k==='gei'&&V.v!=='打'){sbs.V=0;sbNote='Here 给 + person goes with 打电话 (call someone), so the verb switched to 打电话.';}
+if(slot==='V'&&P.k==='gei'&&V.v!=='打'){sbs.P=0;sbNote='给 + person goes with 打电话 here, so the place slot was cleared.';}
+sbRender();
+}
+function sbCompose(){
+const S=SB.S[sbs.S],T=SB.T[sbs.T],H=SB.H[sbs.H],P=SB.P[sbs.P],V=SB.V[sbs.V],third=S.f===3,k=H.k,conj=(!k||k==='often')&&third;
+const zh=[[S.z,'S']];if(T.z)zh.push([T.z,'T']);if(H.z)zh.push([H.z,'H']);if(P.z)zh.push([P.z,'P']);zh.push([V.v,'V'],[V.o,'O']);
+const pys=[S.p];if(T.z)pys.push(T.p);if(H.z)pys.push(H.p);if(P.z)pys.push(P.p);pys.push(V.vp+' '+V.op);
+for(let j=0;j<pys.length-1;j++)if(pys[j]==='bù'&&/[àèìòùǜ]/.test(pys[j+1].split(' ')[0]))pys[j]='bú';
+const bang=k==='bie',py=pys.join(' ');
+const en=[];
+if(bang)en.push(['Don’t','H']);
+else{en.push([S.e,'S']);
+if(k==='yao')en.push([(S.f===1?'am':third?'is':'are')+' going to','H']);
+else if(k==='xiang')en.push([third?'wants to':'want to','H']);
+else if(k==='bu'||k==='cai')en.push([third?'doesn’t':'don’t','H']);
+else if(k==='often')en.push(['often','H']);}
+const vb=V.ve[conj?1:0];
+if(P.k==='gei')en.push([conj?'calls':'call','V'],[P.e,'P']);
+else if(P.k==='dao')en.push([(conj?'goes':'go')+' to '+P.e,'P'],['to '+V.ve[0],'V'],[V.oe,'O']);
+else{en.push([vb,'V'],[V.oe,'O']);if(P.k==='zai')en.push([P.e,'P']);}
+let warn='';
+if(T.z)en.push([k==='cai'?'until '+T.u:T.e,'T']);
+else if(k==='cai')warn='才 needs a time before it (才 = not until that time). Pick a time.';
+let es=en.map(x=>x[0]).join(' ');es=es[0].toUpperCase()+es.slice(1)+(bang?'!':'.');
+return {zh,py:py[0].toUpperCase()+py.slice(1)+(bang?'!':'.'),hz:zh.map(x=>x[0]).join('')+(bang?'！':'。'),en,es,warn};
+}
+function sbRender(){
+const r=sbCompose();
+const row=(slot,label,opts,txt)=>`<div class='sblabel'>${chipH('',slot,false,false).replace(`<span class='c'></span>`,'')}<span>${label}</span></div><div class='choice s-${slot}'>${opts.map((o,j)=>`<button class='btn${sbs[slot]===j?' on':''}' onclick='sbPick("${slot}",${j})'>${txt(o)}</button>`).join('')}</div>`;
+$('#sb').innerHTML=`<div class='ex'><div class='sub'>Your sentence, in Chinese order</div>${chipsHTML(r.zh)}<div class='hz' style='font-size:26px'>${r.hz}</div><div class='expy'>${r.py}</div>
+${r.warn?`<div class='note'>${r.warn}</div>`:`<div class='sub' style='margin-top:10px'>English order:</div>${chipsHTML(r.en,true)}<div>${r.es}</div>`}
+${sbNote?`<div class='note'>${sbNote}</div>`:''}</div>
+${row('S','Subject: who?',SB.S,o=>o.z)}
+${row('T','Time: when? (goes before the verb)',SB.T,o=>o.z||'none')}
+${row('H','Helper word',SB.H,o=>o.z?o.z+' <span class=sub>'+o.e+'</span>':'none')}
+${row('P','Place / 给 / 到 phrase (before the verb)',SB.P,o=>o.z||'none')}
+${row('V','Verb + object',SB.V,o=>o.v+o.o)}`;
+}
+/* ================= E · TRANSLATE ================= */
+let lastT=null;
+function normZh(s){return String(s||'').normalize('NFKC').toLowerCase().replace(/[\s，。？！、,.?!；;：:“”"'‘’()（）—\-]/g,'').replace(/儿/g,'');}
+function translate(){
+cancelAll();
+const it=pick(TR,'tr',lastT,x=>x.id);lastT=it;
+h(`${back()}<div class='card'><div class='row between'><span class='pill'>Translate · ${it.src}</span><span class='sub'>${pct(avg(TR.map(t=>mastery(t.id,'tr'))))} learned</span></div>
+<div class='prompt'>${it.en}</div>${it.cue?`<div class='sub'>Use: <span class='hz' style='font-size:18px'>${it.cue}</span></div>`:''}
+<label class='f' for='zh'>Your Chinese (type it, or say it aloud or write it on paper first)</label><textarea id='zh' lang='zh-Hans' autocomplete='off' spellcheck='false'></textarea>
+<div class='row' style='margin-top:12px'><button class='btn pri' id='show'>Show model answer</button><button class='btn' id='hint'>Pattern hint</button></div>
+<div id='hb'></div><div id='fb'></div></div>`);
+$('#hint').onclick=()=>{$('#hb').innerHTML=`<div class='fb'><b>Pattern:</b> ${it.hint}</div>`;$('#hint').disabled=true;};
+$('#show').onclick=()=>{
+const mine=normZh($('#zh').value),acc=[it.a,...(it.acc||[])].map(normZh),hit=mine&&acc.includes(mine);
+$('#show').style.display='none';$('#hint').style.display='none';$('#hb').innerHTML='';
+$('#fb').innerHTML=`<div class='fb'><div class='hz' style='font-size:26px'>${it.a}</div><div class='expy'>${it.p}</div><div style='margin-top:6px'><b>Pattern:</b> ${it.hint}</div>
+${mine?(hit?`<div class='ok' style='margin-top:6px'><b>✓ Yours matches an accepted answer.</b></div>`:`<div style='margin-top:6px'><b>Yours:</b> <span class='hz' style='font-size:20px'>${esc($('#zh').value)}</span><div class='sub'>Not an exact match. Compare slot by slot: time before or after the subject are both fine.</div></div>`):''}
+<div class='row' style='margin-top:10px' id='sa'><button class='btn' id='y'>I got it</button><button class='btn' id='n'>Not yet</button></div></div>`;
+const fin=ok=>{rec(it.id,'tr',ok);$('#sa').innerHTML=`<button class='btn pri' id='nx'>Next →</button>`;$('#nx').onclick=translate;$('#nx').focus();};
+$('#y').onclick=()=>fin(true);$('#n').onclick=()=>fin(false);
+if(hit)$('#y').focus();
+};
+}
+home();
+</script>
+</body>
+</html>
