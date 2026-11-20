@@ -110,9 +110,8 @@ table.fit{min-width:0}
 </style>
 </head>
 <body>
-<aside class='wrap' style='padding-bottom:0'><p class='card'><a href='quiz-prep.html'>Nov 20 quiz prep: recognition, writing, and a practice quiz</a><br><small>The original Dialogue 1 practice remains below.</small></p></aside>
 <div id='notice'></div>
-<nav class='wrap lesson-nav' aria-label='Lessons'><a href='../'>Lesson 4</a> · <a href='../lesson-5/'>Lesson 5</a> · <a href='./' aria-current='page'>Lesson 6</a></nav>
+<nav class='wrap lesson-nav' aria-label='Lessons'><a href='../'>Lesson 4</a> · <a href='../lesson-5/'>Lesson 5</a> · <a href='./' aria-current='page'>Lesson 6</a> · <a href='quiz-prep.html'>Lesson&nbsp;6&nbsp;quiz&nbsp;prep</a></nav>
 <div class='wrap' id='app'></div>
 <script>
 /* ================= DATA (from the 11/9–11/16 slides and the L6 vocab sheet) ================= */
@@ -488,7 +487,7 @@ ${bar(`Sentence structure · ${stepsDone()} of ${STEPS.length} steps`,stm)}${bar
 <button class='mode' onclick='recog()'><b>2 · Recognition</b><span class='sub'>See the character, type the pinyin and English.</span></button>
 <button class='mode' onclick='writing()'><b>3 · Write it</b><span class='sub'>See the pinyin, draw the characters, get graded stroke by stroke.</span></button>
 <button class='mode' onclick='sentences()'><b>4 · Sentences</b><span class='sub'>${SENT.length} sentences from Dialogue 1 and the slides: draw them from pinyin, then translate.</span></button>
-<button class='mode' onclick='mock()'><b>5 · Mock quiz</b><span class='sub'>Practice estimate: 5 recognition, 5 writing, 1 sentence, with a 10-minute timer, scored out of 12.</span></button>
+<button class='mode' onclick='mock()'><b>5 · Mock quiz</b><span class='sub'>Same format as the Nov 20 quiz (5 recognition, 5 writing, 1 sentence, 10-minute timer, 12 points), drawn from the Dialogue 1 words. For the quiz’s 17 writing targets, use Lesson 6 quiz prep.</span></button>
 <button class='mode' onclick='wordlist()'><b>Word list</b><span class='sub'>Every word on one page, with your streaks.</span></button>
 </div>
 <p class='sub' style='margin-top:16px'>Pinyin works with tone marks (bàngōngshì) or numbers (ban4gong1shi4). Words and sentences you miss come back more often. Progress saves on this device.</p>`);
@@ -710,7 +709,7 @@ return `<tr><td class='sub'>${it.s.p}</td><td>${good}/${it.charRes.length} chara
 const pc=tot/max,msg=pc>=0.96?'Strong practice result. Review again later to keep it fresh.':pc>=0.85?'Close. Drill the misses below, then go again.':pc>=0.6?'Getting there. Do Learn strokes on the misses, then try again.':'Start with Learn strokes and Recognition, then come back.';
 h(`<div class='card'><div class='sub' style='text-align:center'>${MS.timeUp?'Time’s up!':'Mock quiz done'} · ${fmt(MS.used)} used</div><div class='score'>${tot}<span class='sub' style='font-size:24px'> / ${max}</span></div><div style='text-align:center;margin-top:8px'>${msg}</div>
 <div class='row center' style='margin-top:14px'><button class='btn pri' onclick='mock()'>New mock quiz</button><button class='btn' onclick='home()'>Home</button></div></div>
-<div class='card'><h2>Review</h2><div class='sub'>Practice estimate, not official scoring: 1 per word (half pinyin or characters, half English), 2 for the sentence. The Lesson 5 vocab quiz on the slides was 10 minutes; its exact format isn’t on the slides. For the sentence, compare your translation and tap if it matches.</div>
+<div class='card'><h2>Review</h2><div class='sub'>Practice estimate, not official scoring: 1 per word (half pinyin or characters, half English), 2 for the sentence. The Nov 20 quiz format (5 recognition, 5 writing, 1 sentence; 12 points; 10 minutes) is confirmed on Canvas; its writing items come from the 17 targets in Lesson 6 quiz prep. For the sentence, compare your translation and tap if it matches.</div>
 <div class='table-scroll'><table style='margin-top:10px'><tr><th>Given</th><th>You</th><th>Answer</th><th>Pts</th></tr>${rows.join('')}</table></div></div>`);
 }
 /* ================= SLOT HELPERS ================= */

@@ -1,6 +1,6 @@
 # Lesson 6 practice
 
-Open `lesson-6/` from the existing GitHub Pages site. Lessons 4 (root) and 5 (`lesson-5/`) are unchanged except for a Lesson 6 link in their navigation. Lesson 6 stores progress under `l6-practice-v1` and `l6-practice-v1-best`; it never reads or writes the Lesson 4/5 keys. All stroke resources load locally; there are no runtime CDN dependencies.
+Open `lesson-6/` from the existing GitHub Pages site. Lessons 4 (root) and 5 (`lesson-5/`) are unchanged except for Lesson 6 and Lesson 6 quiz prep links in their navigation. Lesson 6 stores progress under `l6-practice-v1` and `l6-practice-v1-best`; it never reads or writes the Lesson 4/5 keys. All stroke resources load locally; there are no runtime CDN dependencies.
 
 ## Sources and scope
 
@@ -8,8 +8,17 @@ Content comes only from `L5-L6 vocab and sentence patterns (Nov 9-16).md` and th
 
 - **Word pool (43 entries):** 打电话, 给, 喂, 您, 就, 哪, 位, 时间, 上, 下, 上课, 下课, 上个星期, 下个星期, 上上个星期, 下下个星期, 以后, 空儿, 有空, 方便, 节, 门, 课, 年级, 考试, 小考, 开会, 问, 问题, 没问题, 办公室, 要是, 等, 到, 行, 别, 别客气, 去年, 今年, 明年, 上午, 中午, 下午.
 - **Writing list:** none of the slides gives a writing list for the Lesson 6 quiz (W11 Wed only says "Review flashcards (1-23)"), so every word is a writing word.
-- **Mock format:** the W11 Mon slide shows the Lesson 5 vocab quiz as 10 minutes; no other format details are on the slides. The mock (5 recognition, 5 writing, 1 sentence; 10 minutes; 12 points) is a practice estimate.
+- **Mock format:** Canvas confirms the Nov 20 quiz format: 12 points in the first 10 minutes, with 5 recognition items, 5 writing items and 1 sentence. This page's mock uses that 5 + 5 + 1 format with a 10-minute timer. Only the per-item point split is an estimate. Its word pool is Dialogue 1. For the quiz's 17 writing targets, use `quiz-prep.html`.
 - **Sentences, word order, translation:** taken from the slides' own examples and answers (W12 Mon p.9 translation set, the 等/到…去/行 handout, W11 Tue/Thu exercises, the L5 review, Dialogue 1) wherever one exists.
+
+## Nov 20 quiz prep (`quiz-prep.html`)
+
+`quiz-prep.html` uses the Lesson 5 page template (same styling, `lib/` scripts, engine and six modes: Learn strokes, Recognition, Write it, Sentences, Mock quiz, Word list). Its progress is stored under `l6-quizprep-v1` and `l6-quizprep-v1-best`. Every lesson's nav bar links to it.
+
+- **Writing (17, from the Canvas study guide):** 打电话, 上午, 时间, 问题, 要, 开会, 两节课, 年级, 考试, 以后, 空儿, 方便, 客气, 帮, 练习, 说, 回来. Pinyin and English follow the study notes.
+- **Recognition (50):** all 49 Lesson 6 vocabulary entries from textbook pp. 154–155 and 164 (Dialogues 1–2), crosschecked against HanziPress and HanziStroke, plus 两节课.
+- **Sentences (3):** the original drills from the study notes: 您星期五上午有空儿吗？ / 我下午有两节课，上午要开会。 / 我考试以后要练习说中文。
+- **Mock:** 5 recognition, 5 writing (drawn from the 17), 1 sentence, 10-minute timer, 12 points, matching Canvas.
 
 ## Sections
 
@@ -20,7 +29,7 @@ Content comes only from `L5-L6 vocab and sentence patterns (Nov 9-16).md` and th
 - **E · Translate:** 41 English → Chinese drills with the model answer, pinyin and a pattern hint.
 - **1–5:** the same Learn strokes / Recognition / Write it / Sentences / Mock quiz / Word list engine as Lesson 5 (three right in a row = learned; misses come back more often).
 
-Stroke data in `hz-data.js` comes from `hanzi-writer-data@2.0.1` (Arphic Public License; see `STROKE-DATA-LICENSE.txt`). It supplements the unchanged shared `lib/hz-data.js` with every missing character used by the writing words and sentences.
+Stroke data in `hz-data.js` comes from `hanzi-writer-data@2.0.1` (Arphic Public License; see `STROKE-DATA-LICENSE.txt`). It supplements the unchanged shared `lib/hz-data.js` with every missing character used by the writing words and sentences on both Lesson 6 pages.
 
 ## Validation
 
@@ -28,6 +37,7 @@ Serve the repository with `python3 -m http.server 8766`, then run with an existi
 
 ```sh
 PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tests/lesson-6.cjs
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright node tests/lesson-6-quiz-prep.cjs
 ```
 
 The test runs at 390px (and checks 320px), walks all 33 structure steps, checks every word-order item's accepted orders and the slot hints, and drives the slot builder, word building, translation, stroke learning (including real touch drawing), sentences and mock quiz. It also confirms that Lesson 4/5 progress is untouched and that no console errors occur.
