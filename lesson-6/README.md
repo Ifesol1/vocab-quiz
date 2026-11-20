@@ -19,6 +19,9 @@ Content comes only from `L5-L6 vocab and sentence patterns (Nov 9-16).md` and th
 - **Recognition (50):** all 49 Lesson 6 vocabulary entries from textbook pp. 154–155 and 164 (Dialogues 1–2), crosschecked against HanziPress and HanziStroke, plus 两节课.
 - **Sentences (3):** the original drills from the study notes: 您星期五上午有空儿吗？ / 我下午有两节课，上午要开会。 / 我考试以后要练习说中文。
 - **Mock:** 5 recognition, 5 writing (drawn from the 17), 1 sentence, 10-minute timer, 12 points, matching Canvas.
+- **Sample sentences (`EX`, 50):** every recognition word has one short sentence (Chinese, pinyin, English) that contains the word. Recognition shows the Chinese with the word highlighted. Its pinyin and English appear only after you answer. The word list shows all three lines, and the mock shows sentences only in the review after grading. Sources:
+  - Dialogue 1 / study sheet / slides / study notes (39): 打电话, 上午, 时间, 问题, 要, 开会, 两节课, 年级, 考试, 以后, 空儿, 方便, 客气, 练习, 给, 电话, 喂, 就, 您, 哪, 位, 下午, 开, 节, 课, 考, 试, 要是, 到, 办公室, 行, 等, 别, 常老师, 下个, 下, 中文, 文, 见面.
+  - New, using only Lessons 1–6 words (11): 帮, 说, 回来, 在, 会 (adapted from the slide question 开了什么会？), 准备, 啊, 但是, 得, 跟, 面.
 
 ## Sections
 

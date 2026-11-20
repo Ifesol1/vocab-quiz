@@ -40,6 +40,9 @@ assert.equal(await page.evaluate(()=>{
  const cases=[['da3dian4hua4','打电话'],['kai1hui4','开会'],['liang3jie2ke4','两节课'],['kao3shi4','考试'],['kong4r','空儿'],['kong4','空儿'],['kong4 er5','空儿'],['ke4qi5','客气'],['ke4qi4','客气'],['hui2lai2','回来'],['hui2lai5','回来'],['wei2','喂'],['wei4','喂'],['na3','哪'],['nei3','哪'],['yao4shi5','要是'],['xia4ge5','下个'],['ban4gong1shi4','办公室']];
  return cases.every(([p,h])=>gradePy(p,ALL.find(w=>w.h===h)).score===1)&&gradePy('kao1shi4',WRITE.find(w=>w.h==='考试')).score===0.5&&gradePy('wrong',WRITE[0]).score===0;
 }),true);
+// Every recognition word has one sample sentence that contains it, with toned pinyin and English.
+assert.equal(await page.evaluate(()=>Object.keys(EX).length),50);
+assert.deepEqual(await page.evaluate(()=>ALL.filter(w=>!(w.x&&w.x.z.includes(w.h)&&/[。？！]$/.test(w.x.z)&&/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/.test(w.x.p)&&/[.?!]$/.test(w.x.p)&&/[.?!”]$/.test(w.x.e)&&w.x.e.trim().length>3)).map(w=>w.h)),[]);
 assert.equal(await page.evaluate(()=>['afterward','grade level','spare time','attend a meeting','be going to','give a test','courteous','say or speak'].every((a,i)=>enOK(a,WRITE.find(w=>w.h===['以后','年级','空儿','开会','要','考试','客气','说'][i]).e))),true);
 
 // ---- Learn strokes, recognition, writing, touch drawing ----
@@ -51,7 +54,18 @@ for(let n=1;n<=5;n++){
  for(let j=0;j<4;j++){await page.evaluate(()=>{for(const w of testWriters.slice(-3))while(w._quiz?._isActive)w.skipQuizStroke();});await page.waitForTimeout(350);}
 }
 await page.waitForSelector('#again');assert.match(await page.locator('h2').textContent(),/Locked in/);
-await page.evaluate(()=>recog());await page.fill('#py',await page.evaluate(()=>lastR.p));await page.fill('#en',await page.evaluate(()=>lastR.e[0]));await page.click('#chk');assert.match(await page.locator('#fb').textContent(),/✓ Pinyin/);
+// Recognition: the Chinese sentence (target highlighted) shows before answering; its pinyin and English only after.
+for(const mode of ['right','wrong','idk']){
+ await page.evaluate(()=>recog());
+ const x=await page.evaluate(()=>({h:lastR.h,z:lastR.x.z,p:lastR.x.p,e:lastR.x.e,wp:lastR.p,we:lastR.e[0]}));
+ assert.equal(await page.locator('#ex b').textContent(),x.h);assert.equal(await page.locator('#ex .hz').textContent(),x.z);
+ const before=await page.locator('#app').textContent();assert.ok(!before.includes(x.p)&&!before.includes(x.e),'sentence pinyin/English hidden before answering');
+ assert.equal(await page.locator('#exr').textContent(),'');await noOverflow('recognition before '+mode);
+ if(mode==='idk')await page.click('#idk');else{await page.fill('#py',mode==='right'?x.wp:'wrong');await page.fill('#en',mode==='right'?x.we:'nope');await page.click('#chk');}
+ assert.match(await page.locator('#fb').textContent(),mode==='right'?/✓ Pinyin/:/✗ Pinyin/);
+ const after=await page.locator('#exr').textContent();assert.ok(after.includes(x.p)&&after.includes(x.e),'sentence revealed after '+mode);
+ await noOverflow('recognition after '+mode);
+}
 await page.evaluate(()=>writing());assert.ok(await page.evaluate(()=>WRITE.includes(lastW)));await page.click('#hint');await page.click('#show');await page.waitForTimeout(200);await page.click('#skip');
 await page.waitForTimeout(200);
 // Draw 五 (only in the quiz prep stroke data) with real touch events along its bundled medians.
@@ -70,8 +84,13 @@ for(let i=0;i<3;i++){
  await page.fill('#en','Practice translation');await page.click('#chk');await page.click('#y');
 }
 await page.evaluate(()=>sentences());await page.click('#peek');assert.match(await page.locator('#pk').textContent(),/您星期五上午有空儿吗/);
-await page.evaluate(()=>wordlist());await noOverflow('word list');assert.equal(await page.locator('table tr').count(),51);
+await page.evaluate(()=>wordlist());await noOverflow('word list');assert.equal(await page.locator('table tr').count(),101);
+assert.equal(await page.locator('td.exc b').count(),50);
+assert.deepEqual(await page.evaluate(()=>{const t=document.querySelector('#app').textContent;return ALL.filter(w=>!(t.includes(w.x.z)&&t.includes(w.x.p)&&t.includes(w.x.e))).map(w=>w.h);}),[]);
 await page.setViewportSize({width:320,height:740});for(const f of ['home()','wordlist()','recog()','learn()','sentences(1)']){await page.evaluate(f);await noOverflow(f+' at 320');}
+await page.evaluate(()=>recog());await page.click('#idk');await noOverflow('recognition revealed at 320');
+assert.ok(await page.evaluate(()=>{const b=document.querySelector('#ex').getBoundingClientRect();return b.left>=0&&b.right<=innerWidth;}));
+await page.evaluate(()=>wordlist());assert.ok(await page.evaluate(()=>[...document.querySelectorAll('td.exc .exs')].every(e=>e.getBoundingClientRect().right<=innerWidth)),'word-list sentences fit at 320 without scrolling');
 await page.setViewportSize({width:390,height:844});
 
 // ---- Mock quiz: exactly 5 recognition + 5 writing (from the 17) + 1 sentence, 10 minutes, 12 points ----
@@ -83,9 +102,13 @@ assert.ok(shape.left>595000&&shape.left<=600000);assert.match(shape.timer,/^(10:
 for(let i=0;i<11;i++){
  if(i<5){await page.fill('#py',await page.evaluate(()=>MS.items[MS.i].w.p));await page.fill('#en',await page.evaluate(()=>MS.items[MS.i].w.e[0]));}
  else {await page.click('#gu');await page.fill('#en','Practice answer');}
+ assert.equal(await page.locator('#app .ex, #app .exs').count(),0,'no sample sentences during the mock');
+ assert.equal(await page.evaluate(()=>{const it=MS.items[MS.i],t=document.querySelector('#app').textContent;return !!it.w&&(t.includes(it.w.x.z)||t.includes(it.w.x.p)||t.includes(it.w.x.e));}),false);
  await noOverflow('mock '+i);await page.click('#next');
 }
 await page.waitForSelector('.score');assert.match(await page.locator('h2').textContent(),/Review/);await noOverflow('review');
+assert.equal(await page.locator('#app .exs').count(),10);
+assert.deepEqual(await page.evaluate(()=>{const t=document.querySelector('#app').textContent;return MS.items.filter(it=>it.w&&!(t.includes(it.w.x.z)&&t.includes(it.w.x.p)&&t.includes(it.w.x.e))).map(it=>it.w.h);}),[]);
 assert.equal(await page.evaluate(()=>MS.items.reduce((a,it)=>a+it.max,0)),12);assert.match(await page.locator('.score').textContent(),/\/ 12/);
 await page.evaluate(()=>mockToggle(10));assert.equal(await page.evaluate(()=>MS.items[10].enOk),true);
 await page.evaluate(()=>{mock();document.querySelector('#py').value='saved answer';MS.end=Date.now()-1;mockTick();});assert.match(await page.locator('.card').first().textContent(),/Time’s up/);assert.equal(await page.evaluate(()=>MS.items[0].pyAns),'saved answer');
@@ -95,5 +118,5 @@ assert.ok(await page.evaluate(()=>localStorage.getItem('l6-quizprep-v1')));
 await page.reload();await page.waitForFunction(()=>!!window.HZ);assert.ok(await page.evaluate(()=>Object.keys(M).length>0));
 assert.deepEqual(await page.evaluate(()=>['l4-practice-v1','l5-practice-v1','l6-practice-v1'].map(k=>JSON.parse(localStorage.getItem(k)).sentinel.n)),[9,7,5]);
 await page.goto(base+'lesson-6/');assert.equal(await page.evaluate(()=>KEY),'l6-practice-v1');assert.equal(await page.evaluate(()=>M.sentinel.n),5);
-assert.deepEqual(errors,[]);await browser.close();console.log('PASS: nav links from every lesson, exact 17 writing words / 50 recognition entries / 3 sentences from the study notes, stroke data, pinyin and English variants, five-copy learning, recognition, writing, touch drawing, sentence drills, 5+5+1 mock with 10-minute timer and 12 points, persistence, lesson isolation, 390/320px overflow, no console errors.');
+assert.deepEqual(errors,[]);await browser.close();console.log('PASS: nav links from every lesson, exact 17 writing words / 50 recognition entries / 3 sentences from the study notes, stroke data, pinyin and English variants, a sample sentence per word (hidden pinyin/English until answered, shown in the word list and mock review only), five-copy learning, recognition, writing, touch drawing, sentence drills, 5+5+1 mock with 10-minute timer and 12 points, persistence, lesson isolation, 390/320px overflow, no console errors.');
 })().catch(e=>{console.error(e);process.exit(1)});
